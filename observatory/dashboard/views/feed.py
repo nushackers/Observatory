@@ -24,17 +24,17 @@ from observatory.dashboard.views import commits, blogs
 
 from django.db import connection
 
-INDEX_EVENT_COUNT = 100
+INDEX_EVENT_COUNT = 60
 
 # a feed showing recent Events
 def feed(request):
   qs = InheritanceQuerySet(model = Event)
   objs = qs.select_subclasses().order_by('date').reverse()[:INDEX_EVENT_COUNT]
-  
+
   avoid_duplicate_queries(objs, "author", "project",
                           author = { request.user.id: request.user }
                                    if request.user.is_authenticated() else {})
-  
+
   return render_to_response('feed/feed.html', {
       'events': objs,
       'disable_content': True
@@ -44,13 +44,13 @@ def feed(request):
 def event(request, url_path):
   resp = force_url_paths(event, url_path)
   if resp: return resp
-  
+
   try:
     qs = InheritanceQuerySet(model = Event)
     the_event = qs.select_subclasses().get(url_path = url_path)
   except:
     raise Http404
-  
+
   if the_event.__class__ is Commit:
     return HttpResponseRedirect(reverse(commits.show,
                                         args = (the_event.project.url_path,

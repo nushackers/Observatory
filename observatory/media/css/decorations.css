@@ -34,7 +34,7 @@
 }
 
 .dark {
-    background: #222 url("/site-media/pixels/bg-dark.png");
+    background: #666;
     text-shadow: 0px -1px 0px #000;
     position: relative;
 

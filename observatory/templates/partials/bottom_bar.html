@@ -16,7 +16,7 @@
         {% if specify_type %}
             {{ event.type_name }} •
 		{% endif %}
-		{% if event.project %}	
+		{% if event.project %}
 			<a href="{% url dashboard.views.projects.show event.project.url_path %}">
 				{{ event.project.title }}
 			</a> •

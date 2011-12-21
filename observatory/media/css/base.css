@@ -53,16 +53,21 @@
 }
 
 #navigation-main {
-    font-size: 20px;
+    font-size: 17px;
+    letter-spacing: -1px;
     position: absolute;
     top: 20px;
     right: 20px;
 }
 
+#navigation-main a {
+    font-weight: bold;
+}
+
 #navigation-account {
     font-size: 10px;
     position: absolute;
-    top: 58px;
+    top: 54px;
     right: 20px;
 }
 
