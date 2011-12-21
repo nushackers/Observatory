@@ -49,12 +49,14 @@
                 <li>
                     <a href="{% url dashboard.views.users.people %}">People</a>
                 </li>
+                {% comment %}
 				<li class="navigation-bullet">•</li>
                 <li>
                     <a href="{% url todo.views.list_lists %}">
                         Tasks
                     </a>
                 </li>
+                {% endcomment %}
             </ul>
             <ul id="navigation-account">
                 {% if user.is_authenticated %}
