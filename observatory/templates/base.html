@@ -18,9 +18,6 @@
 	{% head_tags %}
 	{% block head %}{% endblock %}
 
-	<link href='http://fonts.googleapis.com/css?family=Kreon:regular,bold' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Puritan:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
-
 	{% favicon %}
 </head>
 <body>
@@ -30,12 +27,6 @@
         </h1>
         <div id="navigation-right">
             <ul id="navigation-main">
-                <li>
-                    <a href="{% url dashboard.views.feed.feed %}">
-                        Feed
-                    </a>
-                </li>
-                <li class="navigation-bullet">•</li>
                 <li>
                     <a href="{% url dashboard.views.projects.list %}">
                         Projects

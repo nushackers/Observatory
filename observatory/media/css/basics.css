@@ -1,7 +1,7 @@
 html {
-    background: url("/site-media/pixels/bg-html.png") #303136;
-    font-family: "Puritan", 'Helvetica Neue', Helvetica, Arial, "Bitstream Vera Sans", sans-serif;
-    font-size: 10pt;
+    background: #fff;
+    font-family: "Helvetica Neue",Helvetica,Arial,default;
+    font-size: 12px;
     color: rgb(30, 30, 30);
 }
 
@@ -11,10 +11,9 @@ body {
 }
 
 p {
-    text-align: justify;
     margin: 0px 0px 15px 0px;
     padding: 0px;
-    line-height: 1.2em;
+    line-height: 1.4em;
     font-size: 10pt;
 }
 

@@ -4,6 +4,7 @@
 
 {% block content %}
 {% autoescape off %}
+    <h1>{{ post.project }} Blog</h1>
     <h2 style="float:left">{{ post.title }}</h2>
     {% if user in post.project.authors.all %}
         <div style="float:right">

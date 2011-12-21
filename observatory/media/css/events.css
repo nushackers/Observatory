@@ -3,30 +3,32 @@
     margin: 15px 0px;
     border: 0px;
     padding: 0px;
-    
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-
-    -moz-box-shadow: 0px 0px 5px #111;
-    -webkit-box-shadow: 0px 0px 5px #111;
-    box-shadow: 0px 0px 5px #111;
 }
 
 .event-author {
   position: absolute;
-  top: -15px;
-  right: -46px;
+  top: 10px;
+  left: -60px;
   width: 40px;
   height: 40px;
   padding: 0px;
-  
+
+  z-index: -1px;
+}
+
+.event-author-small {
+  position: absolute;
+  top: 10px;
+  left: -30px;
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+
   z-index: -1px;
 }
 
 .post {
-  text-align: justify;
-  line-height: 1.3em;
+  line-height: 1.4em;
 }
 
 .post img {
