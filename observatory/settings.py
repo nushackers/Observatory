@@ -13,10 +13,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db.sqlite',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'observatorydb',                      # Or path to database file if using sqlite3.
+        'USER': 'observer',                      # Not used with sqlite3.
+        'PASSWORD': 'observer2',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -205,18 +205,18 @@ JS_FILES=[
   "js/lib/vendor/jquery.html5form-1.2.js",
   "js/globals.js",
   "js/lib/lightbox.js",
-  
+
   # forms
   "js/lib/form/Form.js",
   "js/lib/form/ExclusiveOrForms.js",
-  
+
   # pages
   "js/lib/page/Page.js",
   "js/lib/page/LoginRegisterPage.js",
   "js/lib/page/AddProjectPage.js",
   "js/lib/page/ShowProjectPage.js",
   "js/lib/page/ModifyProjectPage.js",
-  
+
   "js/init.js"
 ]
 
