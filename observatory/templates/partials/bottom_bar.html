@@ -1,6 +1,10 @@
 <div class="clear"></div>
 
+{% if event.type_name == "Commit" %}
+<div class="bottom-proj-bar">
+{% else %}
 <div class="bottom-bar">
+{% endif %}
     <div class="bottom-bar-left">
         {% if event.author %}
             <a href="{% url dashboard.views.users.profile event.author.id %}">
