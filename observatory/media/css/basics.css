@@ -24,8 +24,13 @@ pre {
 }
 
 a {
+  color: #19558D;
+  font-weight: bold;
   line-height: 1.4em;
+  text-decoration: none;
 }
+
+a:hover { text-decoration: underline;}
 
 a img {
   border: 0px;
