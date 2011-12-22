@@ -70,7 +70,8 @@ a.modebutton:active, button.modebutton:active, input.modebutton:active {
 }
 
 input.request-button-positive, input.request-button-negative {
-	font-size: 14px;
+	font-size: 13px;
+	font-weight: bold;
 	-webkit-border-radius: 5px;
   	-moz-border-radius: 5px;
   	border-radius: 5px;
