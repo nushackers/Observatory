@@ -1,0 +1,119 @@
+AuthorRequest
+	user ForeignKey
+	project ForeignKey
+	autodetected Boolean
+	====================================
+	approve() #both methods either save to project table, or delete
+	reject()
+
+Blog
+	url URLField
+	rss URLField
+	user ForeignKey
+	==============INHERITED=============
+	most_recent_date DateTimeField
+	from_feed BooleanField
+	====================================
+	link_to() # returns address for blog
+	fetch() #fetches post from rss and saves to Event
+
+BlogPost
+	markdown TextField # source text of internally hosted blog posts
+	content TextField # rendered content blog post
+	blog ForeignKey
+	external_link URLField #external link of a post (if applicable)
+	====================================
+	autoescape() # return False
+	type_name() # returns Post
+
+Commit
+	url URLField # commit url
+	diff TextField # diff for commit, no RSS
+	repository ForeignKey
+	====================================
+	save() # save only 200 line long urls
+
+Contributor
+	projects ManyToManyField
+	user ForeignKey
+	name CharField
+	email CharField
+	====================================
+	save() only 197-char long name and email
+
+Event
+	title CharField
+	date DateTimeField
+	summary TextField
+	from_feed BooleanField
+	project ForeignKey
+	author ForeignKey
+	author_name CharField # only if he's not a Dashboard user
+	author_email CharField
+	====================================
+	formatted_summary() # returns summary
+	type_name() # returns class name by default
+	age() # returns time_ago()
+
+EventSet
+	most_recent_date DateTimeField
+	from_feed BooleanField
+	====================================
+	age_ago() # returns time_ago()
+	when_update() # returns a string "name update age_ago"
+	add_event()
+
+Project
+	title CharField
+	description TextField
+	website URLField
+	repository OneToOneField - with repository type
+	blog OneToOneField - with blog type
+	wiki URLField
+	authors ManyToManyField with users
+	active BooleanField
+	score IntegerField # score computed each fetch
+	presentations IntegerField # number of presentations group has made this sem
+	====================================
+	fetch() # call blog.fetch() and repo.fetch() calc_score()
+	calculate_score()
+	score_emblem_face() # return the right emote
+	score_emblem_css() # return the right emote css
+	random_main_page_screenshot() # return random screenie
+
+Repository
+	web_url URLField
+	clone_url CharField
+	vcs CharField # (could either be git/svn)
+	reo_rss URLField # repo rss feed
+	cmd CharField # contains clone command
+	==============INHERITED=============
+	most_recent_date DateTimeField
+	from_feed BooleanField
+	====================================
+	parse_commits() #
+	clone_or_fetch() # tells whether repo is clone or string
+	clone_cmd() # returns clone command string
+	clone_git_repo()
+	clone_svn_repo()
+	clone_bzr_repo()
+	clone_repo_function(vcs) # returns the function
+
+Screenshot
+	title CharField
+	description CharField
+	project ForeignKey
+	extension CharField
+	====================================
+	filename() # filename
+	thumbnail() # returns thumbnail filname, no dir
+	url() # of screenshot
+	#thumb_url() # of thumbnail
+	main_page_url() # thumb to be used on main page
+	create() # saving a screenshot
+	create_thumbnail() # create thumbnail, use PIL
+
+URLPathedModel
+	url_path CharField
+	====================================
+	save() # cleans the url path

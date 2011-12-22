@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load gravatar %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
 {% autoescape off %}
-    <h1>{{ post.project }} Blog</h1>
+    <h2><a href="{% url dashboard.views.projects.show post.project.url_path %}">{{ post.project.title }}</a> \ <a href="{% url dashboard.views.blogs.show_blog post.project.url_path %}">Blog</a></h2>
     <h2 style="float:left">{{ post.title }}</h2>
     {% if user in post.project.authors.all %}
         <div style="float:right">
@@ -15,6 +16,23 @@
         </div>
     {% endif %}
     <div class="clear"></div>
-    {{ post.content }}
+    <div class="extra-content">
+        <div class="event-author-post">
+            {% if post.author %}
+                <a href="{% url dashboard.views.users.profile post.author.id %}">
+                <img src="{{ post.author|gravatar:50 }}"
+                    alt="{{ post.author.get_full_name }}"
+                    class="event-gravatar" />
+                </a>
+            {% else %}
+                <img width="25" src="/site-media/pixels/blank.gif"
+                        title="Unknown Author, Sorry!"
+                        class="event-gravatar" />
+            {% endif %}
+            </div>
+        <div class="feed-item">
+            {{ post.content }}
+        </div>
+        </div>
 {% endautoescape %}
 {% endblock %}
