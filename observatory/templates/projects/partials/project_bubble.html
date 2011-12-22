@@ -6,6 +6,9 @@
                  alt="Score: {{ project.score }}" />
         </div>
     {% endif %}
+
+    <div class="project-container">
+
     <h2 style="float:left; clear:both">
         <a href="{% url dashboard.views.projects.show project.url_path %}">
             {{ project.title }}
@@ -34,4 +37,5 @@
 		</div>
         {% endif %}
     </div>
+    </div><!--project-container-->
 </div>

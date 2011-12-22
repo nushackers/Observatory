@@ -28,6 +28,12 @@
   clear: both;
 }
 
+.project-container {
+    padding: 10px;
+    border-top: 1px solid #aaa;
+    background: #f6f6f6;
+}
+
 .project-score {
   color: white;
 
@@ -274,7 +280,6 @@ div.header h2 {
 #project-bars {
   margin: 0px 0px -20px 0px;
   padding: 20px 20px 10px 20px;
-  width: 750px;
 
   -webkit-border-bottom-right-radius: 3px;
   -webkit-border-bottom-left-radius: 3px;
@@ -287,7 +292,7 @@ div.header h2 {
 .projects-bar-container {
   position: relative;
   height: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .projects-bar-outline {
@@ -316,7 +321,6 @@ div.header h2 {
 
 .projects-bar {
   height: 24px;
-  background: #000;
   display: none;
   margin: 2px;
   -webkit-border-radius: 13px;
@@ -328,7 +332,7 @@ div.header h2 {
 
 .projects-bar-text {
   width: 320px;
-  color: white;
+  color: #333;
   font-weight: bold;
   font-size: 14px;
   height: 30px;
@@ -337,7 +341,7 @@ div.header h2 {
   left: 450px;
   top: 0px;
 
-  -moz-text-shadow: 0px 0px 5px #000;
-  -webkit-text-shadow: 0px 0px 5px #000;
-  text-shadow: 0px 0px 5px #000;
+  -moz-text-shadow: 0px 0px 5px #fff;
+  -webkit-text-shadow: 0px 0px 5px #fff;
+  text-shadow: 0px 0px 5px #fff;
 }

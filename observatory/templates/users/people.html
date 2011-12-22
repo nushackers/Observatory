@@ -11,7 +11,7 @@ We have {{ people|length }} {{ adjective }} current developer{{ people|length|pl
             </a>
 </ul>
 </h2>
-<ul class="project-authors dark">
+<ul class="project-authors light">
 {% for person in people %}
 <li>
 <a href="{% url dashboard.views.users.profile person.id %}">
