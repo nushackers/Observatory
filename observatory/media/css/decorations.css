@@ -10,7 +10,7 @@
 
 /* light bars under initial headers */
 .light-bar, .large-light-bar, .green-bar {
-    margin: 10px 0px 5px 0px;
+    margin: 10px 0px 0px;
     padding: 5px;
     clear: both;
     font-weight: bold;

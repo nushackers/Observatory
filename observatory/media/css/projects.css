@@ -155,9 +155,21 @@ div.header h2 {
 }
 
 #project-description {
-  clear: both;
-  padding: 10px 0px 0px 0px;
-  border-bottom: 1px solid #aaa;
+    clear: both;
+    padding: 10px 10px 0px;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#project-description p {
+    margin-bottom: 10px;
 }
 
 .project-gravatar {

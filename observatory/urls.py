@@ -100,14 +100,14 @@ urlpatterns = patterns('',
     (r'^projects/([^\.]*)\.rss', EventsFeed()),
 
     (r'^projects/$', projects.list),
-    (r'^$', feed.feed),
+    (r'^$', feed.main),
 
 	#tasks
 	#(r'^todo/', include('todo.urls')), # Removed tasks from Treehouse
 
     # feed
     (r'^event/([^\.]*)/$', feed.event),
-    (r'^feed/$', feed.feed),
+    (r'^feed/$', feed.main),
     (r'^feed\.rss$', EventsFeed()),
 
     # serve media (for now)

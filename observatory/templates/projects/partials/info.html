@@ -2,7 +2,7 @@
     {% if user in project.authors.all or user.is_staff %}
         <li>
             <a href="{% url dashboard.views.projects.modify project.url_path %}">
-                Modify
+                Edit
             </a>
         </li>
     {% endif %}

@@ -26,10 +26,12 @@ from django.db import connection
 
 INDEX_EVENT_COUNT = 60
 
-# a feed showing recent Events
-def feed(request):
+# front page feed
+def main(request):
   qs = InheritanceQuerySet(model = Event)
   objs = qs.select_subclasses().order_by('date').reverse()[:INDEX_EVENT_COUNT]
+  projs = Project.objects.exclude(active = False).exclude(score = None).order_by('score')
+  projs = projs[0:4] if projs else None
 
   avoid_duplicate_queries(objs, "author", "project",
                           author = { request.user.id: request.user }
@@ -37,6 +39,7 @@ def feed(request):
 
   return render_to_response('feed/feed.html', {
       'events': objs,
+      'projects': projs,
       'disable_content': True
     }, context_instance = RequestContext(request))
 
