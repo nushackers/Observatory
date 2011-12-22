@@ -14,14 +14,14 @@
     {% include "projects/partials/info.html" %}
     <div class="clear"></div>
     {{ project.description|linebreaks }}
-    <div class="bottom-bar">
+    <div class="bottom-proj-bar">
         {% if project.score %}
-		<div class="bottom-bar-left">
+		<div class="bottom-proj-left">
 			<a href="{% url dashboard.views.commits.show_repository project.url_path %}">
 				{{ project.repository.when_updated }}
 			</a>
 		</div>
-		<div class="bottom-bar-right">
+		<div class="bottom-proj-right">
 			<a href="{% url dashboard.views.blogs.show_blog project.url_path %}">
 				{{ project.blog.when_updated }}
 			</a>

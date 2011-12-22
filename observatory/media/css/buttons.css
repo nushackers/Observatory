@@ -1,113 +1,82 @@
-/* stylish buttons, works for submit inputs and <a> tags */
-.button-small {
-	font-size: 8pt;
-	height: 26px;
-	margin: 7px 0px;
-	background-size: auto 100%;
+/* Primary Buttons
+----------------------------------------------- */
+a.modebutton, button.modebutton, input.modebutton {
+    background: #eee; /* Old browsers */
+    color: #111 !important;
+	background: -moz-linear-gradient(top, rgba(255,255,255,.2) 0%, rgba(119,119,119,.2) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.2)), color-stop(100%,rgba(119,119,119,.2))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(119,119,119,.2) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(119,119,119,.2) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(119,119,119,.2) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(119,119,119,.2) 100%); /* W3C */
+  border: 1px solid #aaa;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  padding: 4px 12px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #444;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0 1px rgba(255, 255, 255, .75);
+  cursor: pointer;
+  margin: 0 3px 20px;
+  line-height: 21px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+a.modebutton.small, button.modebutton.small, input.modebutton.small {
+    font-size: 11px;
+    padding: 0 5px;
+    margin: 0;
+    text-decoration: none;
 }
 
-a.button-small {
-	display: block;
+a.modebutton.big, button.modebutton.big, input.modebutton.big {
+    font-size: 15px;
+    padding: 0 20px;
+    margin: 0;
+    text-decoration: none;
 }
 
-.button {
-	  font-size: 13pt;
-	  height: 2.5em;
-	  margin: 0px;
+a.modebutton:hover, button.modebutton:hover, input.modebutton:hover {
+    color: #222;
+	background: #eee; /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,.3) 0%, rgba(0,0,0,.3) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(0,0,0,.3))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* W3C */
+  border: 1px solid #888;
+  border-top: 1px solid #aaa;
+  border-left: 1px solid #aaa;
+  text-decoration: none !important;
 }
 
-a.button {
-	display: block;
+a.modebutton:active, button.modebutton:active, input.modebutton:active {
+    background: #eee; /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0,0,0,.3) 0%, rgba(255,255,255,.3) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,.3)), color-stop(100%,rgba(255,255,255,.3))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* IE10+ */
+    background: linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* W3C */
+    border: 1px solid #888;
+    border-bottom: 1px solid #aaa;
+    border-right: 1px solid #aaa;
 }
 
-.button, .button-small {
-	text-align: center;
-}
-
-.button, .button-small, select {
-	border: 1px solid #ccc;
-
-	padding: 0px 10px;
-
-	color: #444;
-	text-decoration: none;
-	font-weight: bold;
-
-	background: #ddd;
-	background-image: url('/site-media/pixels/button-nohover.gif');
-	background-image: -webkit-gradient(linear, left bottom, left top,
-	                                   from(#ccc),
-	                                   to(#eee));
-	background-image: -moz-linear-gradient(100% 100% 90deg,
-	                                       #ccc 0%,
-	                                       #eee 100%);
-
-	-moz-text-shadow: 0px 1px 1px #fff;
-	-webkit-text-shadow: 0px 1px 1px #fff;
-	text-shadow: 0px 1px 1px #fff;
-
+input.request-button-positive, input.request-button-negative {
+	font-size: 14px;
 	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-
-	font-family: "Helvetica Neue",Helvetica,Arial,default;
-}
-
-.green:hover:not(:disabled), .green:focus:not(:disabled) {
-    background: #92b471;
-    border: 1px solid #839E68;
-
-    background-image: -webkit-gradient(linear, left bottom, left top,
-	                                   from(#839E68),
-	                                   to(#92b471));
-	background-image: -moz-linear-gradient(100% 100% 90deg,
-	                                       #ccc 0%,
-	                                       #eee 100%);
-
-	text-shadow: 0px -1px 0px #5F704F;
-	color: white;
-}
-
-/*.button:hover:not(:disabled), .button:focus:not(:disabled),
-.button-small:hover:not(:disabled), .button-small:focus:not(:disabled)
-select:hover:not(:disabled), select:focus:not(:disabled) {
-	background-image: url('/site-media/pixels/button-hover.gif');
-	color: rgb(51, 56, 80);
-	border-color: rgb(62, 92, 252);
-	outline: none;
-
-	background-image: -webkit-gradient(linear, left bottom, left top,
-	                                   from(#3252fc),
-	                                   color-stop(0.5, #5670fd),
-	                                   color-stop(0.51, #6a81fd),
-	                                   to(#8194fd));
-	background-image: -moz-linear-gradient(100% 100% 90deg,
-	                                       #3252fc 0%,
-	                                       #5670fd 50%,
-	                                       #6a81fd 51%,
-	                                       #8194fd 100%);
-
-	-moz-text-shadow: 0px 1px 1px rgb(163, 178, 255);
-	-webkit-text-shadow: 0px 1px 1px rgb(163, 178, 255);
-	text-shadow: 0px 1px 1px rgb(163, 178, 255);
-}*/
-
-.button:active:not(:disabled), .button-small:active:not(:disabled),
-select:active:not(:disabled) {
-	color: black;
-	border-color: black;
-
-	background-image: url('/site-media/pixels/button-active.gif');
-	background-image: -webkit-gradient(linear, left bottom, left top,
-	                                   from(rgb(80, 80, 80)),
-	                                   to(rgb(44, 44, 44)));
-	background-image: -moz-linear-gradient(100% 100% 90deg,
-	                                       rgb(80, 80, 80) 0%,
-	                                       rgb(44, 44, 44) 100%);
-
-	-moz-text-shadow: 0px 1px 1px #888;
-	-webkit-text-shadow: 0px 1px 1px #888;
-	text-shadow: 0px 1px 1px #888;
+  	-moz-border-radius: 5px;
+  	border-radius: 5px;
+  	padding: 5px 10px;
+  	margin: 0px 0px 0px 5px;
+  	cursor: pointer;
 }
 
 
@@ -117,7 +86,7 @@ select:active:not(:disabled) {
 	padding-bottom: 20px;
 }
 
-.pagination-previous {
+.prevpage {
 	float: left;
 }
 

@@ -7,7 +7,7 @@
 
 .event-author {
   position: absolute;
-  top: 10px;
+  top: 5px;
   left: -60px;
   width: 40px;
   height: 40px;
@@ -18,8 +18,8 @@
 
 .event-author-small {
   position: absolute;
-  top: 10px;
-  left: -30px;
+  top: 3px;
+  left: -35px;
   width: 40px;
   height: 40px;
   padding: 0px;

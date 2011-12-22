@@ -9,7 +9,7 @@
     {% if user in post.project.authors.all %}
         <div style="float:right">
             <a href="{% url dashboard.views.blogs.edit_post post.project.url_path post.url_path %}"
-               class="green button-small">
+               class="modebutton">
                 Edit Post
             </a>
         </div>

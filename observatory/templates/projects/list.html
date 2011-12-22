@@ -31,24 +31,19 @@
 {% else %}
     <h2 style="float:left">No projects found.</h2>
 {% endif %}
-    <ul class='project-info'>
-        <li>
-            <a href="{% url dashboard.views.projects.archived_list %}"
-               class="green button-small">
-                Past Projects
-            </a>
-        </li>
-    </ul>
+<div style="float: right">
 {% if user.is_authenticated %}
-    <ul class='project-info'>
-        <li>
             <a href="{% url dashboard.views.projects.add %}"
-               class="green button-small">
+               class="modebutton">
                 Add a Project
             </a>
-        </li>
-    </ul>
 {% endif %}
+            <a href="{% url dashboard.views.projects.archived_list %}"
+               class="modebutton">
+                Past Projects
+            </a>
+
+</div>
 <div class="clear"></div>
 
 {% if projects and not nothing_fetched %}
@@ -64,7 +59,7 @@
                 projects have been updated
             </div>
         </div>
-        
+
         <div class="projects-bar-container">
             <div class="projects-bar-outline">
                 <div class="projects-bar" id="repo-bar"
@@ -76,7 +71,7 @@
                 repositories have been updated
             </div>
         </div>
-    
+
         <div class="projects-bar-container">
             <div class="projects-bar-outline">
                 <div class="projects-bar" id="blog-bar"
@@ -95,7 +90,7 @@
 {% endblock %}
 
 {% block extracontent %}
-<div id="projects-list">    
+<div id="projects-list">
     {% for project in projects %}
         {% include "projects/partials/project_bubble.html" %}
     {% endfor %}

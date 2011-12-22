@@ -15,7 +15,7 @@
 </div>
 <div class="clear"></div>
 
-<div class="dark">
+<div class="light-bar">
     <div id="project-clone">
         {{ project.repository.clone_cmd }}
     </div>
@@ -68,79 +68,12 @@
     {{ project.description|linebreaks }}
 </div>
 
-<div class="dark">
-{% if authors %}
-    <div class="header">
-        <h2>Authors</h2>
-        {% include "projects/partials/author_add_remove.html" %}
-    </div>
-    
-    <ul class="project-authors dark">
-        {% for author in authors %}
-            <li>
-                <a href="{% url dashboard.views.users.profile author.id %}">
-                    <img src="{{ author|gravatar:100 }}"
-                         alt="{{ author.get_full_name }}" />
-                    <p>{{ author.get_full_name }}</p>
-                </a>
-            </li>
-        {% endfor %}
-        <div style="clear: both"></div>
-    </ul>
-{% else %}
-    <div id="project-no-authors">
-        <h2>No current authors.</h2>
-        <div id="project-no-authors-button">
-            {% if user.is_authenticated %}
-                <form action="{% url dashboard.views.projects.add_user %}"
-                      method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="I work on this!"
-                           class="green button" />
-                    <input type="hidden" value="{{ project.id }}"
-                          name="project_id" />
-                    <input type="hidden" value="{{ user.id }}"
-                          name="user_id" />
-                </form>
-            {% endif %}
-        </div>
-        <div class="clear"></div>
-    </div>
-{% endif %}
-
-{% if contributors %}
-    <hr />
-    
-    <div class="header">
-        <h2>Contributors</h2>
-    </div>
-    <ul class="project-authors">
-        {% for contributor in contributors %}
-            <li>
-                {% if contributor.user %}
-                    <a href="{% url dashboard.views.users.profile contributor.user.id %}">
-                        <img src="{{ contributor.user|gravatar:100 }}"
-                             alt="{{ contributor.user.get_full_name }}" />
-                        <p>{{ contributor.user.get_full_name }}</p>
-                    </a>
-                {% else %}
-                    <img src="{{ contributor|contributor_gravatar:100 }}"
-                         alt="{{ contributor.name }}" />
-                    <p>{{ contributor.name }}</p>
-                {% endif %}
-            </li>
-        {% endfor %}
-        <div style="clear:both"></div>
-    </ul>
-{% endif %}
-</div>
-    
 <div id="project-recent-activity">
     <div id="project-recent-activity-left">
         {% if blogposts %}
             <div class="project-recent-header">
                 <h2>Recent Posts</h2>
-                <a href="{% url dashboard.views.blogs.show_blog project.url_path %}" class="green button">
+                <a href="{% url dashboard.views.blogs.show_blog project.url_path %}" class="modebutton small">
                     See All
                 </a>
             </div>
@@ -164,7 +97,7 @@
         {% if commits %}
             <div class="project-recent-header">
                 <h2>Recent Commits</h2>
-                <a href="{% url dashboard.views.commits.show_repository project.url_path %}" class="green button">
+                <a href="{% url dashboard.views.commits.show_repository project.url_path %}" class="modebutton small">
                     See All
                 </a>
             </div>
@@ -186,4 +119,71 @@
     </div>
 </div>
 <div style="clear:both"></div>
+
+<div class="dark">
+{% if authors %}
+    <div class="header">
+        <h2>Authors</h2>
+        {% include "projects/partials/author_add_remove.html" %}
+    </div>
+
+    <ul class="project-authors dark">
+        {% for author in authors %}
+            <li>
+                <a href="{% url dashboard.views.users.profile author.id %}">
+                    <img src="{{ author|gravatar:100 }}"
+                         alt="{{ author.get_full_name }}" />
+                    <p>{{ author.get_full_name }}</p>
+                </a>
+            </li>
+        {% endfor %}
+        <div style="clear: both"></div>
+    </ul>
+{% else %}
+    <div id="project-no-authors">
+        <h2>No current authors.</h2>
+        <div id="project-no-authors-button">
+            {% if user.is_authenticated %}
+                <form action="{% url dashboard.views.projects.add_user %}"
+                      method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="I work on this!"
+                           class="modebutton" />
+                    <input type="hidden" value="{{ project.id }}"
+                          name="project_id" />
+                    <input type="hidden" value="{{ user.id }}"
+                          name="user_id" />
+                </form>
+            {% endif %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endif %}
+
+{% if contributors %}
+    <hr />
+
+    <div class="header">
+        <h2>Contributors</h2>
+    </div>
+    <ul class="project-authors">
+        {% for contributor in contributors %}
+            <li>
+                {% if contributor.user %}
+                    <a href="{% url dashboard.views.users.profile contributor.user.id %}">
+                        <img src="{{ contributor.user|gravatar:100 }}"
+                             alt="{{ contributor.user.get_full_name }}" />
+                        <p>{{ contributor.user.get_full_name }}</p>
+                    </a>
+                {% else %}
+                    <img src="{{ contributor|contributor_gravatar:100 }}"
+                         alt="{{ contributor.name }}" />
+                    <p>{{ contributor.name }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+        <div style="clear:both"></div>
+    </ul>
+{% endif %}
+</div>
 {% endblock %}

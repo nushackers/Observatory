@@ -5,7 +5,7 @@
 {% block content %}
 <form action="{{ next }}" method="post">
     {% csrf_token %}
-    
+
     <div style="display:none">
         <input type="hidden" id="id_title"
             name="title" value="{{ post.title }}" />
@@ -24,7 +24,7 @@
                 name="active" value="active" />
         {% endif %}
     </div>
-    
+
     {% if blog_rss %}
         <div style="display:none">
             <input type="hidden" id="id_repo_rss"
@@ -38,7 +38,7 @@
             <input type="text" id="id_blog_rss" name="blog_rss" value="" />
         </p>
     {% endif %}
-    
+
     {% if repo_rss %}
         <div style="display:none">
             <input type="hidden" id="id_repo_rss"
@@ -52,9 +52,9 @@
             <input type="text" id="id_repo_rss" name="repo_rss" value="" />
         </p>
     {% endif %}
-    
+
     <div class="submitbutton">
-        <input type="submit" class="green button" value="Save" />
+        <input type="submit" class="modebutton" value="Save" />
     </div>
 </form>
 {% endblock %}

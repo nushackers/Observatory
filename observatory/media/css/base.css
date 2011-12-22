@@ -4,6 +4,7 @@
     background: #333;
     position: relative;
     height: 80px;
+
 }
 
 #top h1 {
@@ -17,11 +18,12 @@
 
 #top h1, #navigation-main {
     line-height: 40px;
+    letter-spacing: -1px;
 }
 
 #top a, .navigation-bullet {
     font-family: "Helvetica Neue",Helvetica,Arial,default;
-    font-weight: 500;
+    font-weight: bold;
     color: #ddd;
     -moz-text-shadow: 0px 0px 5px #000;
     -webkit-text-shadow: 0px 0px 5px #000;
@@ -80,8 +82,8 @@
 #content, .extra-content {
     background-color: #fff;
     clear: both;
-    padding: 20px 0;
-    width: 750px;
+    padding: 5px 0 20px 0;
+    width: 790px;
     line-height: 1.4em;
     position: relative;
 }
@@ -103,8 +105,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #content h3, .extra-content h3 {
     padding: 0px;
-    margin:  0 0 3px 0;
+    margin:  10px 0 3px 0;
     line-height: 20px;
+    font-size: 105%;
 }
 
 #content h2 a, .extra-content h2 a, #content h3 a, .extra-content h3 a {
