@@ -1,6 +1,6 @@
 /* Navigation bar */
 #top {
-    padding: 0px 10px;
+    padding: 0px;
     position: relative;
     height: 80px;
     border-bottom: 1px solid #333;
@@ -55,7 +55,7 @@
     letter-spacing: -1px;
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 0px;
 }
 
 #navigation-main a {
@@ -66,7 +66,7 @@
     font-size: 10px;
     position: absolute;
     top: 54px;
-    right: 20px;
+    right: 0px;
 }
 
 .navigation-bullet {

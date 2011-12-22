@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="top-bar">
-    <h2 style='float:left'>{{ project.title }}</h2>
+    <h2>{{ project.title }}</h2>
 
     {% include "projects/partials/info.html" %}
 </div>
@@ -120,14 +120,14 @@
 </div>
 <div style="clear:both"></div>
 
-<div class="dark">
+<div class="blue">
 {% if authors %}
     <div class="header">
         <h2>Authors</h2>
         {% include "projects/partials/author_add_remove.html" %}
     </div>
 
-    <ul class="project-authors dark">
+    <ul class="project-authors">
         {% for author in authors %}
             <li>
                 <a href="{% url dashboard.views.users.profile author.id %}">

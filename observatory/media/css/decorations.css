@@ -5,6 +5,7 @@
 
 .top-bar h2 {
     float: left;
+    font-size: 25px;
 }
 
 /* light bars under initial headers */
@@ -33,16 +34,29 @@
 	margin: 0px;
 }
 
+.light, .blue {
+    margin: 0px;
+    padding: 10px 20px;
+}
+
 .light {
     background: #ddd;
     border: 1px solid #aaa;
 }
 
-.light a {
-    color: #555;
+.blue {
+    background: #E5EFF7;
+    border: 1px solid #7dafd7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.light a, .blue a {
+    color: #666;
     text-decoration: none;
 }
-.light a:hover {color: #222;}
+.light a:hover, .blue a:hover {color: #222;}
 
 .dark {
     background: #222;
