@@ -102,6 +102,9 @@ urlpatterns = patterns('',
     (r'^projects/$', projects.list),
     (r'^$', feed.main),
 
+    #comments
+    (r'^comments/', include('django.contrib.comments.urls')),
+
 	#tasks
 	#(r'^todo/', include('todo.urls')), # Removed tasks from Treehouse
 
