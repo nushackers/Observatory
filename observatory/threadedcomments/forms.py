@@ -22,6 +22,12 @@ class ThreadedCommentForm(CommentForm):
         if initial is None:
             initial = {}
         initial.update({'parent': self.parent})
+
+        # Remove name, email, and url requirements
+        self.base_fields["name"].required = False
+        self.base_fields["email"].required = False
+        self.base_fields["url"].required = False
+
         super(ThreadedCommentForm, self).__init__(target_object, data=data,
             initial=initial)
 
@@ -31,6 +37,6 @@ class ThreadedCommentForm(CommentForm):
     def get_comment_create_data(self):
         d = super(ThreadedCommentForm, self).get_comment_create_data()
         d['parent_id'] = self.cleaned_data['parent']
-        d['title'] = self.cleaned_data['title']
+        #d['title'] = self.cleaned_data['title']
         return d
 

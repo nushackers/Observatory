@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load gravatar %}
+{% load threadedcomments_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -29,10 +30,23 @@
                         title="Unknown Author, Sorry!"
                         class="event-gravatar" />
             {% endif %}
-            </div>
+        </div>
         <div class="feed-item">
             {{ post.content }}
         </div>
-        </div>
+        {% if user.is_authenticated %}
+        Logged in as {{ user.first_name }} {{ user.last_name }}
+        {% comment %}
+        {% get_comment_form for post as form %}
+        <form {# action="{% comment_form_target %}" #} method="post">
+        {% csrf_token %}
+        <label for="id_comment">Comment</label><textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
+        <input type="submit" name="post" class="submit-post" value="Post" />
+        </form>
+        {% endcomment %}
+        {% render_comment_form for post %}
+
+        {% endif %}
+    </div>
 {% endautoescape %}
 {% endblock %}

@@ -149,7 +149,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'devserver',
-    'todo',
+    #'todo',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -163,6 +163,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
 )
+
+COMMENTS_APP = 'threadedcomments'
 
 # import recaptcha keys
 try:
