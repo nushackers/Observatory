@@ -125,6 +125,24 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: underline;
 }
 
+#comments {
+    border-top: 1px solid #aaa;
+}
+
+#comments li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+#comments p {
+    margin-bottom: 0px;
+}
+
+.replylink {
+    color: #999;
+    background: #fffced;
+}
+
 #left {
     width: 500px;
     float: left;

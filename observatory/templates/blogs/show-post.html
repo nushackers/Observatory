@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load gravatar %}
+{% load markup %}
 {% load threadedcomments_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
@@ -34,19 +35,89 @@
         <div class="feed-item">
             {{ post.content }}
         </div>
-        {% if user.is_authenticated %}
-        Logged in as {{ user.first_name }} {{ user.last_name }}
-        {% comment %}
-        {% get_comment_form for post as form %}
-        <form {# action="{% comment_form_target %}" #} method="post">
-        {% csrf_token %}
-        <label for="id_comment">Comment</label><textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
-        <input type="submit" name="post" class="submit-post" value="Post" />
-        </form>
-        {% endcomment %}
-        {% render_comment_form for post %}
 
+        <div id="comments">
+        {% if user.is_authenticated %}
+
+        {% get_comment_form for post as form %}
+        <form action="/comments/post/" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            <div {% if field.errors %} class="error"{% endif %}{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "email" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "url" %}style="display:none;"{% endifequal %}
+            {% ifequal field.name "name" %}style="display:none;"{% endifequal %}>
+                {{ field }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}"/>
+            <input type="submit" name="post" class="modebutton" value="Post" />
+        </form>
         {% endif %}
+
+        {% get_comment_list for post as comment_list %}
+        {% for comment in comment_list|fill_tree|annotate_tree %}
+
+        {% ifchanged comment.parent_id %}
+        {% else %}
+            {# </li> #}
+        {% endifchanged %}
+
+        {% if not comment.open and not comment.close %}
+            </li>
+        {% endif %}
+
+        {% if comment.open %}
+            <ul>
+        {% endif %}
+
+        <li{% if comment.last %} class="last"{% endif %}>
+        <a href="{% url dashboard.views.users.profile comment.user_id %}">{{ comment.user_name }}</a>:
+        {{ comment.comment|markdown }}
+
+        {% if user.is_authenticated %}
+        <a style="color: #999; font-size: 80%" href="javascript: $('.com-{{comment.id}}').show();">Reply</a>
+
+        {% get_comment_form for post as form with comment.id %}
+        <form style="display: none;" class="com-{{comment.id}}" action="/comments/post/" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            <div {% if field.errors %} class="error"{% endif %}{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "email" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "url" %}style="display:none;"{% endifequal %}
+            {% ifequal field.name "name" %}style="display:none;"{% endifequal %}>
+                {{ field }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}"/>
+            <input type="submit" name="post" class="modebutton" value="Post" />
+            <a class="modebutton" href="javascript: $('.com-{{comment.id}}').hide();">Cancel</a>
+        </form>
+        {% endif %}
+
+        {% if comment.added_path %} ADDED {% endif %}
+
+        {% for close in comment.close %}
+            </li>
+        </ul>
+        {% endfor %}
+
+        {% endfor %}
+        </div> <!--comments-->
     </div>
 {% endautoescape %}
 {% endblock %}
