@@ -127,6 +127,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #comments {
     border-top: 1px solid #aaa;
+    margin-top: 25px;
+    padding-top: 10px;
 }
 
 #comments li {
@@ -136,11 +138,6 @@ h1, h2, h3, h4, h5, h6 {
 
 #comments p {
     margin-bottom: 0px;
-}
-
-.replylink {
-    color: #999;
-    background: #fffced;
 }
 
 #left {

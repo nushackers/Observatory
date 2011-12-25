@@ -17,4 +17,5 @@ import blogs
 import commits
 import feed
 import projects
+import shares
 import users

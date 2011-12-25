@@ -53,6 +53,8 @@ urlpatterns = patterns('',
     (r'^posts/$', blogs.posts),
     (r'^posts\.rss$', BlogPostsFeed()),
 
+    (r'^item/([^\.]*)/$', shares.show_item),
+
     # users
     (r'^register-or-login/$', users.login_or_reg),
     (r'^register/$', users.register),

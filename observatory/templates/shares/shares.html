@@ -7,16 +7,7 @@
 
 {% block content %}
 {% autoescape off %}
-    <h2><a href="{% url dashboard.views.projects.show post.project.url_path %}">{{ post.project.title }}</a> \ <a href="{% url dashboard.views.blogs.show_blog post.project.url_path %}">Blog</a></h2>
-    <h2 style="float:left">{{ post.title }}</h2>
-    {% if user in post.project.authors.all %}
-        <div style="float:right">
-            <a href="{% url dashboard.views.blogs.edit_post post.project.url_path post.url_path %}"
-               class="modebutton">
-                Edit Post
-            </a>
-        </div>
-    {% endif %}
+    <a href="{% url dashboard.views.blogs.show_user_post post.url_path %}"><h2 style="float:left">{{ post.title }}</h2></a>
     <div class="clear"></div>
     <div class="extra-content">
         <div class="event-author-post">
@@ -27,17 +18,16 @@
                     class="event-gravatar" />
                 </a>
             {% else %}
-                <img width="25" src="/site-media/pixels/blank.gif"
+                <img width="50" src="/site-media/pixels/blank.gif"
                         title="Unknown Author, Sorry!"
                         class="event-gravatar" />
             {% endif %}
         </div>
         <div class="feed-item">
-            {{ post.content }}
+            {{ post.summary }}
         </div>
 
         <div id="comments">
-        <a href="#comments" />
         {% if user.is_authenticated %}
 
         {% get_comment_form for post as form %}
@@ -58,7 +48,7 @@
             </div>
             {% endif %}
         {% endfor %}
-        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}#comments"/>
+        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}"/>
             <input type="submit" name="post" class="modebutton" value="Post" />
         </form>
         {% endif %}
@@ -104,7 +94,7 @@
             </div>
             {% endif %}
         {% endfor %}
-        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}#comments"/>
+        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}"/>
             <input type="submit" name="post" class="modebutton" value="Post" />
             <a class="modebutton" href="javascript: $('.com-{{comment.id}}').hide();">Cancel</a>
         </form>
