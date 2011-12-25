@@ -7,7 +7,13 @@
 
 {% block content %}
 {% autoescape off %}
-    <a href="{% url dashboard.views.blogs.show_user_post post.url_path %}"><h2 style="float:left">{{ post.title }}</h2></a>
+
+    <a href="{% if event.type_name == "Post" %}{% url dashboard.views.blogs.show_user_post post.url_path %}{% else %}{% url dashboard.views.shares.redirect_link post.id %}{% endif %}"><h2 style="float:left">{{ post.title }}</h2></a>
+    {% if post.type_name == "Share" %}
+        {% if post.external_link %}
+        <p class="url" style="float: right; margin-top: 10px;">({{ post.link_display }})</p>
+        {% endif %}
+    {% endif %}
     <div class="clear"></div>
     <div class="extra-content">
         <div class="event-author-post">
@@ -28,6 +34,7 @@
         </div>
 
         <div id="comments">
+        <a href="#comments" />
         {% if user.is_authenticated %}
 
         {% get_comment_form for post as form %}
@@ -48,7 +55,7 @@
             </div>
             {% endif %}
         {% endfor %}
-        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}"/>
+        <input type="hidden" name="next" value="{% if event.type_name == "Post" %}{% url dashboard.views.shares.show_post post.id %}{% else %}{% url dashboard.views.shares.show_link post.id %}{% endif %}#comments"/>
             <input type="submit" name="post" class="modebutton" value="Post" />
         </form>
         {% endif %}
@@ -71,10 +78,10 @@
 
         <li{% if comment.last %} class="last"{% endif %}>
         <a href="{% url dashboard.views.users.profile comment.user_id %}">{{ comment.user_name }}</a>:
-        {{ comment.comment|markdown }}
+        {{ comment.comment|urlizetrunc:33|markdown }}
 
         {% if user.is_authenticated %}
-        <a style="color: #999; font-size: 80%" href="javascript: $('.com-{{comment.id}}').show();">Reply</a>
+        <a class="comment-replylink" href="javascript: $('.com-{{comment.id}}').show();">Reply</a>
 
         {% get_comment_form for post as form with comment.id %}
         <form style="display: none;" class="com-{{comment.id}}" action="/comments/post/" method="post">
@@ -94,7 +101,7 @@
             </div>
             {% endif %}
         {% endfor %}
-        <input type="hidden" name="next" value="{% url dashboard.views.blogs.show_user_post post.url_path %}"/>
+        <input type="hidden" name="next" value="{% if event.type_name == "Post" %}{% url dashboard.views.shares.show_post post.id %}{% else %}{% url dashboard.views.shares.show_link post.id %}{% endif %}#comments"/>
             <input type="submit" name="post" class="modebutton" value="Post" />
             <a class="modebutton" href="javascript: $('.com-{{comment.id}}').hide();">Cancel</a>
         </form>

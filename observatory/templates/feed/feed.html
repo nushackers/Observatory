@@ -7,6 +7,20 @@
     {% if events %}
 
     	<div id="left">
+        <div class="sharebox" id="small-share">
+        <p><a href="javascript:$('#small-share').hide();$('#big-share').show();"><input readonly="readonly" type="text" placeholder="Share a link ..." /></a></p>
+        </div>
+
+        <div class="sharebox" id="big-share" style="display: none;">
+        <h3>Share A Link</h3>
+        <form action="/share/create/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="modebutton" value="Submit" />
+            <a class="modebutton" href="javascript:$('#big-share').hide();$('#small-share').show();">Cancel</a>
+        </form>
+        <p><em>(If you want to write a post, leave the URL field blank.)</em></p>
+        </div>
         {% for event in events %}
         	{% event_bubble event 1 %}
         {% endfor %}

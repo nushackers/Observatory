@@ -7,6 +7,7 @@ class Share(Event):
 		app_label = 'dashboard'
 
 	external_link = models.URLField(blank = True, null = True)
+	link_display = models.CharField(max_length=128, blank = True, null = True)
 
 	def autoescape(self):
 		return False

@@ -21,6 +21,7 @@ from dashboard.models import *
 from dashboard.util import force_url_paths, avoid_duplicate_queries
 from lib.InheritanceQuerySet import InheritanceQuerySet
 from observatory.dashboard.views import commits, blogs
+from dashboard.forms import ShareForm
 
 from django.db import connection
 
@@ -38,6 +39,7 @@ def main(request):
                                    if request.user.is_authenticated() else {})
 
   return render_to_response('feed/feed.html', {
+      'form': ShareForm(),
       'events': objs,
       'projects': projs,
       'disable_content': True

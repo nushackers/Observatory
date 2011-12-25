@@ -10,7 +10,6 @@
 
 /* light bars under initial headers */
 .light-bar, .large-light-bar, .green-bar {
-    margin: 10px 0px 0px;
     padding: 5px;
     clear: both;
     font-weight: bold;
@@ -19,12 +18,14 @@
 }
 
 .light-bar {
+    margin: 10px 0px 10px;
     font-size: 9pt;
     background: #FFFCED;
     border: 1px solid #FFF6A9;
 }
 
 .green-bar {
+    margin: 10px 0px 0px;
     font-size: 9pt;
     padding: 3px 15px;
     background: #E3F8CE;
@@ -160,6 +161,13 @@
 
 .bottom-bar a:hover, .bottom-proj-bar a:hover {
     color: black;
+}
+
+.commentlink {
+    color: #19558D !important;
+}
+.commentlink:hover {
+    color: #333 !important;
 }
 
 /* round the corners of images in posts and give them a subtle shadow */

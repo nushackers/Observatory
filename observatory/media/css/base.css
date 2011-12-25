@@ -95,6 +95,7 @@
 
 .feed-item {
     width: 485px;
+    min-height: 35px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -131,13 +132,21 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 10px;
 }
 
+#comments ul {
+    border-left: 3px solid #eee;
+    border-bottom: 3px solid #eee;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-left-radius: 5px;
+}
+
 #comments li {
     list-style: none;
     margin-bottom: 10px;
 }
 
 #comments p {
-    margin-bottom: 0px;
+    font-size: 110%;
 }
 
 #left {
@@ -159,6 +168,37 @@ h1, h2, h3, h4, h5, h6 {
 #right li {
     list-style: none;
     margin: 0 0 5px -40px;
+}
+
+.sharebox {
+    margin: 20px 0 20px;
+    padding: 10px 20px 0px 10px;
+    background-color: #ecf2f8;
+    border: 3px solid #cbdcec;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.sharebox input[type=text] {
+    height: 20px;
+    font-weight: normal;
+    font-size: 90%;
+}
+
+.sharebox label { font-size: 90%;}
+
+p.url {
+    /* url links */
+    color: #999;
+    font-style: italic;
+}
+
+.comment-replylink {
+    color: #999;
+    font-size: 80%;
+    display: block;
+    margin: -10px 0 5px;
 }
 
 /* errors */

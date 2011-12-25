@@ -5,9 +5,14 @@
 
 	{% if event.type_name == "Post" %}
 	<div class="event-author">
-	{% else %}
+	{% endif %}
+	{% if event.type_name == "Commit" %}
 	<div class="event-author-small">
 	{% endif %}
+	{% if event.type_name == "Share" %}
+	<div class="event-author-share">
+	{% endif %}
+
 	{% if event.author %}
 		<a href="{% url dashboard.views.users.profile event.author.id %}">
 			<img src="{% if event.type_name == "Post" %}{{ event.author|gravatar:50 }}{% else %}{{ event.author|gravatar:25 }}{% endif %}"
@@ -32,7 +37,8 @@
 					{{ event.title }}
 				</a>
 			</h3>
-			{% else %}
+			{% endif %}
+			{% if event.type_name == "Post" %}
 			<h3>
 				{% if not event.blog.user %}
 				<a href="{% url dashboard.views.blogs.show_post event.project.url_path event.url_path %}">
@@ -43,12 +49,22 @@
 				</a>
 			</h3>
 			{% endif %}
+			{% if event.type_name == "Share" %}
+				<a href="{% url dashboard.views.shares.redirect_link event.id %}">
+				{{ event.title }}
+				</a>
+			{% endif %}
 			</div>
 
 			<div class="clear"></div>
 
 			<div class="event-content">
 				{% autoescape off %}
+					{% if event.type_name == "Share" %}
+					{% if event.external_link %}
+					<p class="url">({{ event.link_display }})</p>
+					{% endif %}
+					{% endif %}
 					{% if show_content %}
 						{{ event.content }}
 					{% else %}

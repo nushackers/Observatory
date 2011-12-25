@@ -53,7 +53,11 @@ urlpatterns = patterns('',
     (r'^posts/$', blogs.posts),
     (r'^posts\.rss$', BlogPostsFeed()),
 
-    (r'^item/([^\.]*)/$', shares.show_item),
+    # shares
+    (r'^share/create/$', shares.create_share),
+    (r'^share/post/([^\.]*)/$', shares.show_post),
+    (r'^share/link/([^\.]*)/$', shares.show_link),
+    (r'^share/redirect/([^\.]*)/$', shares.redirect_link),
 
     # users
     (r'^register-or-login/$', users.login_or_reg),
@@ -102,7 +106,7 @@ urlpatterns = patterns('',
     (r'^projects/([^\.]*)\.rss', EventsFeed()),
 
     (r'^projects/$', projects.list),
-    (r'^$', feed.main),
+    (r'^$', feed.main), #home
 
     #comments
     (r'^comments/', include('django.contrib.comments.urls')),
@@ -112,7 +116,7 @@ urlpatterns = patterns('',
 
     # feed
     (r'^event/([^\.]*)/$', feed.event),
-    (r'^feed/$', feed.main),
+    #(r'^feed/$', feed.main),
     (r'^feed\.rss$', EventsFeed()),
 
     # serve media (for now)

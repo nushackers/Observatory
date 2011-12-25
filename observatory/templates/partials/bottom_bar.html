@@ -1,21 +1,28 @@
+{% load comments %}
 <div class="clear"></div>
 
 <div class="bottom-bar">
     <div class="bottom-bar-left">
-        {% if event.author %}
-            <a href="{% url dashboard.views.users.profile event.author.id %}">
-                {{ event.author.get_full_name }}
-            </a>
-        {% else %}
-            {% if event.author_name %}
-                {{ event.author_name }}
-            {% endif %}
-        {% endif %}
+    {% get_comment_count for event as comment_count %}
+
+        <a class="commentlink" href="{% if event.type_name == "Commit" %}{% url dashboard.views.commits.show event.project.url_path event.url_path %}{% endif %}{% if event.type_name == "Post" %}{% if event.from_feed %}{% url dashboard.views.shares.show_post event.id %}{% else %}{% url dashboard.views.blogs.show_user_post event.url_path %}{% endif %}{% endif %}{% if event.type_name == "Share" %}{% url dashboard.views.shares.show_link event.id %}{% endif %}#comments">{{ comment_count }} comments</a>
+
     </div>
     <div class="bottom-bar-right">
         {% if specify_type %}
             {{ event.type_name }} •
 		{% endif %}
+
+        {% if event.author %}
+            <a href="{% url dashboard.views.users.profile event.author.id %}">
+                {{ event.author.get_full_name }} •
+            </a>
+        {% else %}
+            {% if event.author_name %}
+                {{ event.author_name }} •
+            {% endif %}
+        {% endif %}
+
 		{% if event.project %}
 			<a href="{% url dashboard.views.projects.show event.project.url_path %}">
 				{{ event.project.title }}

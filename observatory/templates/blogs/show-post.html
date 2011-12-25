@@ -81,10 +81,10 @@
 
         <li{% if comment.last %} class="last"{% endif %}>
         <a href="{% url dashboard.views.users.profile comment.user_id %}">{{ comment.user_name }}</a>:
-        {{ comment.comment|markdown }}
+        {{ comment.comment|urlizetrunc:33|markdown }}
 
         {% if user.is_authenticated %}
-        <a style="color: #999; font-size: 80%" href="javascript: $('.com-{{comment.id}}').show();">Reply</a>
+        <a class="comment-replylink" href="javascript: $('.com-{{comment.id}}').show();">Reply</a>
 
         {% get_comment_form for post as form with comment.id %}
         <form style="display: none;" class="com-{{comment.id}}" action="/comments/post/" method="post">

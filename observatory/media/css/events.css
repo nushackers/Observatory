@@ -5,7 +5,7 @@
     padding: 0px;
 }
 
-.event-author, .event-author-small, .event-author-post {
+.event-author, .event-author-small, .event-author-share, .event-author-post {
   position: absolute;
   z-index: -1px;
   width: 40px;
@@ -20,6 +20,11 @@
 
 .event-author-small {
   top: 3px;
+  left: -35px;
+}
+
+.event-author-share {
+  top: -5px;
   left: -35px;
 }
 
