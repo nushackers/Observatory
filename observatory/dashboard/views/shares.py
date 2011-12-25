@@ -39,6 +39,9 @@ def create_share(request):
   form = ShareForm(request.POST)
 
   if form.is_valid():
+    if request.POST['title'] and not request.POST['summary'] and not request.POST['external_link']:
+        # Don't let people create posts with only a title
+        return HttpResponseRedirect(reverse(feed.main))
     tld = urlparse(request.POST['external_link']).netloc if request.POST['external_link'] else None
     date = datetime.datetime.utcnow()
     text = markdown(request.POST['summary'], safe_mode = True)
@@ -53,6 +56,7 @@ def create_share(request):
     share.save()
     return HttpResponseRedirect(reverse(feed.main))
   else:
-    print 'ERROR'
-    #temporary, change this to redirect to a proper form
-    return HttpResponseRedirect(reverse(feed.main))
+    return render_to_response('shares/shareform.html', {
+      'form': form
+    }, context_instance = RequestContext(request))
+
