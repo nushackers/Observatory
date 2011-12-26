@@ -85,7 +85,10 @@ class Event(URLPathedModel):
       time = datetime.datetime.utcnow()
     return time_ago(self.date, time)
 
-  # returns number of comments attached to the event
+
   def get_num_comments(self, typeid):
+    """Returns number of comments attached to the event
+    Used for signals-based comment count denormalization
+    """
     return ThreadedComment.objects.filter(content_type = typeid, object_pk=self.id).count()
 

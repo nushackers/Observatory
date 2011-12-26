@@ -151,6 +151,7 @@ h1, h2, h3, h4, h5, h6 {
 #comments ul {
     border-left: 3px solid #eee;
     border-bottom: 3px solid #eee;
+
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-bottomleft: 5px;
     border-bottom-left-radius: 5px;
