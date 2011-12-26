@@ -37,7 +37,7 @@ def denormalize_comments(sender, instance, created=False, **kwargs):
   Used whenever a comment is saved. Purpose: to keep front-page load times down.
   """
   event_type = ContentType.objects.get_for_model(instance.content_object)
-  instance.content_object.num_comments = instance.content_object.get_num_comments()
+  instance.content_object.num_comments = instance.content_object.get_num_comments(event_type.id)
   instance.content_object.save()
 
 def create_notification(sender, instance, created, **kwargs):
