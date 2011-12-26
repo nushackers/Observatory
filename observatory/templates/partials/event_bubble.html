@@ -50,7 +50,7 @@
 			</h3>
 			{% endif %}
 			{% if event.type_name == "Share" %}
-				<a href="{% url dashboard.views.shares.redirect_link event.id %}">
+				<a style="font-size: 110%" href="{% url dashboard.views.shares.redirect_link event.id %}">
 				{{ event.title }}
 				</a>
 			{% endif %}

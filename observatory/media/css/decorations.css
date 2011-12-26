@@ -92,6 +92,28 @@
     color: #fff;
 }
 
+/* Voting arrows */
+.votecontainer { position: relative;}
+
+.votearrows {
+    position: absolute;
+    left: -20px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    height:;
+}
+
+/* Point container */
+.points {
+    color: #777;
+}
+
+/* Comments shame styles */
+.shame1, .shame1 a { color: #aaa !important;}
+.shame2, .shame2 a { color: #ccc !important;}
+.shame3, .shame3 a {color: #eee !important;}
+
 /* dark bottom bars at the bottom of boxes */
 .bottom-bar {
     padding: 0px 20px 0 0;
