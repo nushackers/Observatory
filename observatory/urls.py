@@ -7,6 +7,7 @@ from voting.views import xmlhttprequest_vote_on_object
 from threadedcomments.models import ThreadedComment
 from django.conf.urls.defaults import *
 import settings
+from voting.models import Vote
 
 from django.contrib import admin
 
@@ -20,7 +21,11 @@ for model in (AuthorRequest,
               Project,
 			  User,
 			  Group,
-              Repository,Screenshot):
+              Vote,
+              ThreadedComment,
+              Repository,
+              Screenshot,
+              Share):
      admin.site.register(model)
 
 urlpatterns = patterns('',
