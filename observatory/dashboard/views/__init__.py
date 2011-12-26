@@ -18,4 +18,5 @@ import commits
 import feed
 import projects
 import shares
+import votes
 import users

@@ -111,7 +111,7 @@ urlpatterns = patterns('',
 
     # votes
     url(r'^vote/comment/(?P<object_id>\d+)/(?P<direction>up|down|clear)vote/$',
-        xmlhttprequest_vote_on_object,
+        votes.xmlhttprequest_vote_on_object,
         { 'model' : ThreadedComment },
         name="vote_on_comment"),
 
