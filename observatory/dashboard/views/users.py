@@ -204,11 +204,7 @@ def create_user(request, form):
     event.author = user
     event.save()
 
-  # search contributors for the user's name and email
-  for contrib in Contributor.objects.filter(email__iexact = user.email,
-                                            user = None):
-    contrib.user = user
-    contrib.save()
+  # search contributors for the user's email
 
   for contrib in Contributor.objects.filter(name__iexact = name, user = None):
     contrib.user = user
