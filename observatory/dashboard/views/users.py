@@ -21,7 +21,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from hashlib import md5
-from observatory.dashboard.views import projects
+from observatory.dashboard.views import feed
 from observatory.settings import RECAPTCHA_PUBLIC, RECAPTCHA_PRIVATE
 from observatory.lib.recaptcha.client import captcha
 from django.core.mail import send_mail
@@ -67,7 +67,7 @@ def profile(request, user_id):
 # displays both the login and registration forms. If there is an error with the
 # selected form, the user is redirected to a page with only that form.
 def login_or_reg(request):
-  next = reverse(projects.list)
+  next = reverse(feed.main)
 
   if 'next' in request.GET:
     next = request.GET['next']
@@ -125,7 +125,7 @@ def register(request):
     form = RegistrationForm()
 
   return render_to_response('users/register.html', {
-      'next': reverse(projects.list),
+      'next': reverse(feed.main),
       'reg_form': form,
       'error_header': error_header,
       'RECAPTCHA_PUBLIC': RECAPTCHA_PUBLIC,
@@ -227,7 +227,7 @@ class LoginError:
 
 # allows a user to login
 def login(request):
-  next = reverse(projects.list)
+  next = reverse(feed.main)
   error_header = None
 
   if request.method == 'POST':
@@ -279,7 +279,7 @@ def login(request):
 # logs out a user
 def logout(request):
   auth.logout(request)
-  return HttpResponseRedirect(reverse(projects.list))
+  return HttpResponseRedirect(reverse(feed.main))
 
 # forgot password
 def forgot_password(request):

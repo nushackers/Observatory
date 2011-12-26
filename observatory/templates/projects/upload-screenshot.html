@@ -10,11 +10,11 @@ Dashboard • Upload a screenshot for {{ project.title }}
     action="{% url dashboard.views.projects.upload_screenshot project.url_path %}"
     enctype="multipart/form-data">
         {% csrf_token %}
-        
+
         {{ form }}
-        
+
     <div class="submitbutton">
-            <input type="submit" value="Upload Screenshot" />
+            <input type="submit" class="modebutton" value="Upload Screenshot" />
     </div>
 </form>
 {% endblock %}

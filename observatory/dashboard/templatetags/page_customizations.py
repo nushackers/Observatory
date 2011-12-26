@@ -44,7 +44,7 @@ def karma(userid):
 	"""
 	try:
 		contributor = Contributor.objects.get(user=userid)
-	except ObjectDoesNotExist:
+	except:
 		return ""
 	return "(%d)" % contributor.karma
 
