@@ -158,6 +158,7 @@ INSTALLED_APPS = (
     'dashboard',
     'django.contrib.comments',
     'threadedcomments',
+    'voting',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

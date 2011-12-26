@@ -3,6 +3,8 @@ from dashboard.models import *
 from dashboard.views import *
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import User, Group
+from voting.views import xmlhttprequest_vote_on_object
+from threadedcomments.models import ThreadedComment
 from django.conf.urls.defaults import *
 import settings
 
@@ -82,7 +84,6 @@ urlpatterns = patterns('',
     (r'^projects/([^\.]*)/commit/([^\.]*)\.rss$',
      SingleFeed(), {'model': Commit}),
 
-
     (r'^commits/(\d+)/$', commits.all_page),
     (r'^commits/$', commits.all),
     (r'^commits\.rss$', CommitsFeed()),
@@ -107,6 +108,12 @@ urlpatterns = patterns('',
 
     (r'^projects/$', projects.list),
     (r'^$', feed.main), #home
+
+    # votes
+    url(r'^vote/comment/(?P<object_id>\d+)/(?P<direction>up|down|clear)vote/$',
+        xmlhttprequest_vote_on_object,
+        { 'model' : ThreadedComment },
+        name="vote_on_comment"),
 
     #comments
     (r'^comments/', include('django.contrib.comments.urls')),

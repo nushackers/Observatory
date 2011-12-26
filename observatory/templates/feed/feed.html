@@ -8,7 +8,7 @@
 
     	<div id="left">
         <div class="sharebox" id="small-share">
-        <p><a href="javascript:$('#small-share').hide();$('#big-share').show();"><input readonly="readonly" type="text" placeholder="Share a link ..." /></a></p>
+        <p><a href="javascript:void(0)" onclick="$('#small-share').hide();$('#big-share').show();"><input readonly="readonly" type="text" placeholder="Share a link ..." /></a></p>
         </div>
 
         <div class="sharebox" id="big-share" style="display: none;">
@@ -17,7 +17,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" class="modebutton" value="Submit" />
-            <a class="modebutton" href="javascript:$('#big-share').hide();$('#small-share').show();">Cancel</a>
+            <a class="modebutton" href="javascript:void(0)" onclick="javascript:$('#big-share').hide();$('#small-share').show();">Cancel</a>
         </form>
         <p><em>(If you want to write a post, leave the URL field blank.)</em></p>
         </div>
@@ -44,4 +44,5 @@
             <h3>No events yet.</h3>
         </div>
     {% endif %}
+    <div class="clear"></div>
 {% endblock %}
