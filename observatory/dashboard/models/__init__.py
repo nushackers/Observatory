@@ -40,20 +40,3 @@ def denormalize_comments(sender, instance, created=False, **kwargs):
 models.signals.post_save.connect(denormalize_comments, sender=ThreadedComment)
 models.signals.post_delete.connect(denormalize_comments, sender=ThreadedComment)
 
-"""Create a Contributor object upon user registration
-"""
-from django.contrib.auth.models import User
-def create_contributor(sender, instance, created, **kwargs):
-  if created:
-    try:
-      cont = Contributor.objects.get(email=instance.email)
-    except:
-      cont = Contributor(user=instance,
-                     name=instance.first_name + " " + instance.last_name,
-                     email=instance.email)
-      cont.save()
-
-# Dispatcher is hashed, used for preventing duplicate signals
-models.signals.post_save.connect(create_contributor,
-          sender=User,
-          dispatch_uid="275ba354958cdce88")

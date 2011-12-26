@@ -14,6 +14,7 @@
 
 from dashboard.forms import LoginForm, RegistrationForm, ForgotPasswordForm
 from dashboard.models import Contributor, Event
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -204,9 +205,21 @@ def create_user(request, form):
     event.author = user
     event.save()
 
-  # search contributors for the user's email
-
-  for contrib in Contributor.objects.filter(name__iexact = name, user = None):
+  # Get a contributor for the user's email, otherwise create one
+  # If for some godforsaken reason there are multiple copies of them,
+  # pick the first one and attach the user to that.
+  try:
+    contrib = Contributor.objects.get(email__iexact = user.email, user = None)
+    contrib.user = user
+    contrib.save()
+  except ObjectDoesNotExist:
+    contrib = Contributor(user=user,
+                     name=name,
+                     email=user.email)
+    contrib.save()
+  except MultipleObjectsReturned:
+    contribs = list(Contributor.objects.filter(email__iexact = user.email, user = None))
+    contrib = contribs[0]
     contrib.user = user
     contrib.save()
 
