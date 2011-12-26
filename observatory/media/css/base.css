@@ -213,8 +213,9 @@ p.url {
 .comment-replylink {
     color: #999;
     font-size: 80%;
-    display: block;
-    margin: -10px 0 5px;
+    position: relative;
+    top: -15px;
+    margin-bottom: -15px;
 }
 
 /* errors */

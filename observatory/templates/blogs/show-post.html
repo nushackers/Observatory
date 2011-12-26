@@ -2,6 +2,7 @@
 {% load gravatar %}
 {% load markup %}
 {% load threadedcomments_tags %}
+{% load voting_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -80,8 +81,9 @@
         {% endif %}
 
         <li{% if comment.last %} class="last"{% endif %}>
-        <a href="{% url dashboard.views.users.profile comment.user_id %}">{{ comment.user_name }}</a>:
-        {{ comment.comment|urlizetrunc:33|markdown }}
+        {% score_for_object comment as score %}
+        <a href="{% url dashboard.views.users.profile comment.user_id %}">{{ comment.user_name }}</a> <span class="score-{{comment.id}}">{{ score.score }}</span> point{{ score.score|pluralize }}&nbsp;<a href="javascript:void(0)" onclick="vote('{{ comment.id }}', 'up');">UP</a>&nbsp;<a href="javascript:void(0)" onclick="vote('{{ comment.id }}', 'down');">DOWN</a>:
+          {{ comment.comment|urlizetrunc:33|markdown }}
 
         {% if user.is_authenticated %}
         <a class="comment-replylink" href="javascript:void(0)" onclick="javascript: $('.com-{{comment.id}}').show();">Reply</a>
@@ -121,4 +123,54 @@
         </div> <!--comments-->
     </div>
 {% endautoescape %}
+{% endblock %}
+
+{% block scripts %}
+$(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+function vote(id, direction) {
+    $.post('/vote/comment/'+id+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
+           function(data) {
+               if (data.success == true) {
+                   $('.score-'+id).text(data.score.score);
+               } else {
+                   alert('ERROR: ' + data.error_message);
+               }
+           }, 'json'
+          )
+}
 {% endblock %}

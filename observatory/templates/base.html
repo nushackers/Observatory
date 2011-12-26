@@ -81,7 +81,7 @@
     {% block extracontent %}
     {% endblock %}
         <div id="footer">
-            <div class="footer-left">Built by the <a href="http://nushackers.org">NUS Hackers</a> • <a href="https://github.com/nushackers/Observatory">Source</a>
+            <div class="footer-left">Built by <a href="http://nushackers.org">NUS Hackers</a> • <a href="https://github.com/nushackers/Observatory">Source</a>
             </div>
             <div class="footer-right">
             About • Community Guidelines
@@ -94,6 +94,10 @@
             initialize_page('{{ js_page_id }}');
         </script>
     {% endif %}
+
+<script type="text/javascript">
+{% block scripts %}{% endblock %}
+</script>
 </body>
 </html>
 
