@@ -14,7 +14,10 @@
 
 from django import template
 from django.template.loader import render_to_string
+from django.core.exceptions import ObjectDoesNotExist
 from observatory.settings import HEADER_TEMPLATE, FAVICON_PATH
+from dashboard.models import Contributor
+
 
 register = template.Library()
 
@@ -35,3 +38,15 @@ def favicon():
     return '<link rel="shortcut icon" href="'+FAVICON_PATH+'" />'
 
 register.simple_tag(favicon)
+
+def karma(userid):
+	"""Returns karma in the form of (x)
+	"""
+	try:
+		contributor = Contributor.objects.get(user=userid)
+	except ObjectDoesNotExist:
+		return ""
+	return "(%d)" % contributor.karma
+
+
+register.simple_tag(karma)

@@ -25,3 +25,19 @@ from Screenshot import Screenshot
 from Share import Share
 from URLPathedModel import URLPathedModel
 
+"""The following signal denormalizes comments to the event model.
+Used whenever a comment is saved. Purpose: to keep front-page load times down.
+"""
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from threadedcomments.models import ThreadedComment
+
+def denormalize_comments(sender, instance, created=False, **kwargs):
+  event_type = ContentType.objects.get_for_model(instance.content_object)
+  instance.content_object.num_comments = instance.content_object.get_num_comments(event_type.id)
+  instance.content_object.save()
+
+models.signals.post_save.connect(denormalize_comments, sender=ThreadedComment)
+models.signals.post_delete.connect(denormalize_comments, sender=ThreadedComment)
+
+

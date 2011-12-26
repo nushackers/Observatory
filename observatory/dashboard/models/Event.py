@@ -19,65 +19,73 @@ from django.contrib.auth.models import User
 from django.utils.html import escape
 from Project import Project
 from URLPathedModel import URLPathedModel
+from threadedcomments.models import ThreadedComment
 
 # an event is currently either a blog post or a commit
 class Event(URLPathedModel):
   class Meta:
     app_label = 'dashboard'
-  
+
   # title of the event
   title = models.CharField("Title", max_length = 128)
-  
+
   # when the event occured
   date = models.DateTimeField()
-  
+
   # a short (hopefully) summary of the event's content.
   # more specific data is stored in the subclasses, Commit and BlogPost
   summary = models.TextField()
-  
+
   # whether the event's source is from a feed
   from_feed = models.BooleanField()
-  
+
   # the project associated with the Event
   project = models.ForeignKey(Project, blank = True, null = True)
-  
+
   # the author of the event, if he/she is in dashboard
   author = models.ForeignKey(User, blank = True, null = True)
 
   # the author's name, displayed if he/she isn't in dashboard
   author_name = models.CharField(max_length = 64, blank = True, null = True)
-  
+
   # the author's email
   author_email = models.CharField(max_length = 64, blank = True, null = True)
-  
+
+  # comment count, for denormalization
+  num_comments = models.IntegerField(default=0)
+
   def __unicode__(self):
     return self.title
-  
+
   # format the summary for display
   def formatted_summary(self):
     return self.summary
-  
+
   # assign the url path when the event is first created
   def save(self, *args, **kwargs):
     # ensure that the title, email, and name fields are not too long
     if len(self.title) > 128:
       self.title = self.title[0:125] + "..."
-    
+
     if self.author_email is not None and len(self.author_email) > 64:
       self.author_email = self.author_email[0:61] + "..."
-    
+
     if self.author_name is not None and len(self.author_name) > 64:
       self.author_name = self.author_name[0:61] + "..."
-    
+
     super(Event, self).save(*args, **kwargs)
-  
+
   # the name of the event type, by default this is just the class name
   def type_name(self):
     return self.__class__.__name__
-  
+
   # how old the event is (relative to now by default)
   def age(self, time = None):
     if time is None:
       time = datetime.datetime.utcnow()
     return time_ago(self.date, time)
+
+  # returns number of comments attached to the event
+  def get_num_comments(self, typeid):
+    return ThreadedComment.objects.filter(content_type = typeid, object_pk=self.id).count()
 

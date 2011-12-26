@@ -48,7 +48,7 @@
                 <li>
                     <a href="{% url dashboard.views.users.profile user.id%}">
                         {{ user.first_name }} {{ user.last_name }}
-                    </a>
+                    </a> {% karma user.id %}
                 </li>
                 <li>
                     <a href="{% url dashboard.views.users.logout %}">Logout</a>

@@ -29,7 +29,7 @@ class Contributor(models.Model):
   projects = models.ManyToManyField(Project)
 
   # karma for user
-  karma = models.IntegerField(default = 0)
+  karma = models.IntegerField(default = 1)
 
   # the person's user model or name/email
   user = models.ForeignKey(User, blank = True, null = True)

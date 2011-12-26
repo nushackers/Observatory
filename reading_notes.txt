@@ -38,6 +38,7 @@ Contributor
 	user ForeignKey
 	name CharField
 	email CharField
+	karma IntegerField
 	====================================
 	save() only 197-char long name and email
 

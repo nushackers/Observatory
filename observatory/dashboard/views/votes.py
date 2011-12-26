@@ -9,7 +9,7 @@ from dashboard.models import Contributor
 VOTE_DIRECTIONS = (('up', 1), ('down', -1), ('clear', 0))
 
 """Views in this file are duplicated from Voting.views and then modified
-Reason for this -> implement karma to Users
+for adding karma to Users
 """
 
 def xmlhttprequest_vote_on_object(request, model, direction,
