@@ -74,11 +74,12 @@
             <div class="project-recent-header">
                 <h2>Recent Posts</h2>
                 {% if user in project.authors.all %}
+                {% if not project.blog.url %}
                 <a style="right: 55px" href="{% url dashboard.views.blogs.write_post project.id %}"
                 class="modebutton small">
                 Write post
                 </a>
-                {% endif %}
+                {% endif %}{% endif %}
                 <a href="{% url dashboard.views.blogs.show_blog project.url_path %}" class="modebutton small">
                     See All
                 </a>
