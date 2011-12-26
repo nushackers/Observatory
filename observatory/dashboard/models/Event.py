@@ -86,9 +86,9 @@ class Event(URLPathedModel):
     return time_ago(self.date, time)
 
 
-  def get_num_comments(self, typeid):
+  def get_num_comments(self):
     """Returns number of comments attached to the event
     Used for signals-based comment count denormalization
     """
-    return ThreadedComment.objects.filter(content_type = typeid, object_pk=self.id).count()
+    return ThreadedComment.objects.filter(object_pk=self.id).count()
 
