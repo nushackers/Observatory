@@ -1,6 +1,5 @@
 # Notifications are needed for user engagement.
 
-import datetime
 from dashboard.util import time_ago
 from django.db import models
 from django.contrib.auth.models import User

@@ -27,6 +27,8 @@ from Share import Share
 from URLPathedModel import URLPathedModel
 
 # Signals
+
+import datetime
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from threadedcomments.models import ThreadedComment
@@ -43,8 +45,25 @@ def denormalize_comments(sender, instance, created=False, **kwargs):
 def create_notification(sender, instance, created, **kwargs):
   """This receiver creates notifications whenever a comment is saved
   """
-  pass
+  if created:
+    parent = instance.content_object
+    # Some Events don't have authors. In such cases, no need to create notifications.
+    try:
+      user = parent.author
+    except:
+      user = None
+
+    if user:
+      parent_comment = instance.parent
+      notify_type = "comment" if parent_comment else parent.type_name().lower()
+      notify = Notification(
+            user = user,
+            author = instance.user,
+            content_object = parent,
+            time = datetime.datetime.utcnow(),
+            notification_type = notify_type)
+      notify.save()
 
 models.signals.post_save.connect(denormalize_comments, sender=ThreadedComment)
 models.signals.post_delete.connect(denormalize_comments, sender=ThreadedComment)
-
+models.signals.post_save.connect(create_notification, sender=ThreadedComment, dispatch_uid="37cce9dce88")

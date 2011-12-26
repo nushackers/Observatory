@@ -64,6 +64,17 @@ EventSet
 	when_update() # returns a string "name update age_ago"
 	add_event()
 
+Notification
+	user ForeignKey # to be notified
+	author ForeignKey # created the notification
+	time DateTimeField
+	content_object GenericForeignKey # connects with whatever
+	notification_type CharField(64)
+
+NotificationRead
+	user ForeignKey
+	lasttime_read DateTimeField
+
 Project
 	title CharField
 	description TextField
