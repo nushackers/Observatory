@@ -30,7 +30,7 @@ from django.contrib.auth import *
 import random
 import datetime
 from random import choice
-from settings import MAIL_SENDER
+from observatory.settings import MAIL_SENDER
 
 # display the list of users
 def people(request):
