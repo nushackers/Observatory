@@ -13,7 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 from django import template
-from settings import JQUERY
+from observatory.settings import JQUERY
 import os
 
 register = template.Library()
@@ -23,7 +23,7 @@ def jquery(parser, token):
   class JqueryNode(template.Node):
     def render(self, context):
       return JQUERY
-  
+
   return JqueryNode()
 
 register.tag('jquery', jquery)

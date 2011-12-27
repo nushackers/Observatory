@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load gravatar %}
+{% load markup %}
+{% load threadedcomments_tags %}
+{% load voting_tags %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+{% autoescape off %}
+
+    <a href="{% if event.type_name == "Post" %}{% url dashboard.views.blogs.show_user_post post.url_path %}{% else %}{% url dashboard.views.shares.redirect_link post.id %}{% endif %}"><h2 style="float:left">{{ post.title }}</h2></a>
+    {% if post.type_name == "Share" %}
+        {% if post.external_link %}
+        <p class="url" style="float: right; margin-top: 10px;">({{ post.link_display }})</p>
+        {% endif %}
+    {% endif %}
+    <div class="clear"></div>
+    <div class="extra-content">
+        <div class="event-author-post">
+            {% if post.author %}
+                <a href="{% url dashboard.views.users.profile post.author.id %}">
+                <img src="{{ post.author|gravatar:50 }}"
+                    alt="{{ post.author.get_full_name }}"
+                    class="event-gravatar" />
+                </a>
+            {% else %}
+                <img width="50" src="/site-media/pixels/blank.gif"
+                        title="Unknown Author, Sorry!"
+                        class="event-gravatar" />
+            {% endif %}
+        </div>
+        <div class="feed-item">
+        {% if post.author %}<div class="singular-author">{{ post.author.get_full_name }}</div>{% endif %}
+            {{ post.summary }}
+        </div>
+
+        <div id="comments">
+        <a href="#comments" ></a>
+        {% if user.is_authenticated %}
+
+        {% get_comment_form for post as form %}
+        <form action="/comments/post/" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            <div {% if field.errors %} class="error"{% endif %}{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "email" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "url" %}style="display:none;"{% endifequal %}
+            {% ifequal field.name "name" %}style="display:none;"{% endifequal %}>
+                {{ field }}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <input type="hidden" name="next" value="{% if post.type_name == "Post" %}{% url dashboard.views.shares.show_post post.id %}{% else %}{% url dashboard.views.shares.show_link post.id %}{% endif %}#comments"/>
+            <input type="submit" name="post" class="modebutton" value="Post" />
+        </form>
+        {% endif %}
+
+        {% get_comment_list for post as comment_list %}
+        {% for comment in comment_list|fill_tree|annotate_tree %}
+
+        {% ifchanged comment.parent_id %}
+        {% else %}
+            {# </li> #}
+        {% endifchanged %}
+
+        {% if not comment.open and not comment.close %}
+            </li>
+        {% endif %}
+
+        {% if comment.open %}
+            <ul>
+        {% endif %}
+
+        <li{% if comment.last %} class="last"{% endif %}>
+
+        {% score_for_object comment as score %}
+        {% vote_by_user user on comment as vote %}
+        {% if user.id != comment.user_id %}
+        {% if not vote %}
+        <div class="votecontainer">
+        <div class="votearrows" id="v-{{comment.id}}">
+        <a href="javascript:void(0)" onclick="vote('{{ comment.id }}', 'up');"><img src="{{MEDIA_URL}}pixels/upvote.gif"></a>&nbsp;<a href="javascript:void(0)" onclick="vote('{{ comment.id }}', 'down');"><img src="{{MEDIA_URL}}pixels/downvote.gif"></a>
+        </div>
+        </div>
+        {% endif %}{% endif %}
+
+        <span {% if score.score == -1 %}class="shame1"{% endif %}{% if score.score == -2 %}class="shame2"{% endif %}{% if score.score <= -3 %}class="shame3"{% endif %}><a href="{% url dashboard.views.users.profile comment.user_id %}">{{ comment.user_name }}</a>&nbsp;<span class="points"><span class="score-{{comment.id}}">{{ score.score }}</span> point{{ score.score|pluralize }}</span>:
+          {{ comment.comment|urlizetrunc:33|markdown }}
+        </span>
+
+        {% if user.is_authenticated %}
+        <a class="comment-replylink" href="javascript:void(0)" onclick="javascript: $('.com-{{comment.id}}').show();">Reply</a>
+
+        {% get_comment_form for post as form with comment.id %}
+        <form style="display: none;" class="com-{{comment.id}}" action="/comments/post/" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            <div {% if field.errors %} class="error"{% endif %}{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "email" %} style="display:none;"{% endifequal %}
+            {% ifequal field.name "url" %}style="display:none;"{% endifequal %}
+            {% ifequal field.name "name" %}style="display:none;"{% endifequal %}>
+                {{ field }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        <input type="hidden" name="next" value="{% if post.type_name == "Post" %}{% url dashboard.views.shares.show_post post.id %}{% else %}{% url dashboard.views.shares.show_link post.id %}{% endif %}#comments"/>
+            <input type="submit" name="post" class="modebutton" value="Post" />
+            <a class="modebutton" href="javascript:void(0)" onclick="javascript: $('.com-{{comment.id}}').hide();">Cancel</a>
+        </form>
+        {% endif %}
+
+        {% for close in comment.close %}
+            </li>
+        </ul>
+        {% endfor %}
+
+        {% endfor %}
+        </div> <!--comments-->
+    </div>
+{% endautoescape %}
+{% endblock %}
+
+{% block scripts %}
+$(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+function vote(id, direction) {
+    $.post('/vote/comment/'+id+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
+           function(data) {
+               if (data.success == true) {
+                   $('.score-'+id).text(data.score.score);
+                   $('#v-'+id).hide()
+               } else {
+
+               }
+           }, 'json'
+          )
+}
+{% endblock %}

@@ -1,16 +1,48 @@
 {% extends "base.html" %}
 {% load event_bubble %}
 
-{% block extratitle %} • Feed{% endblock %}
+{% block extratitle %}{% endblock %}
 
 {% block extracontent %}
     {% if events %}
+
+    	<div id="left">
+        <div class="sharebox" id="small-share">
+        <p><a href="javascript:void(0)" onclick="$('#small-share').hide();$('#big-share').show();"><input readonly="readonly" type="text" placeholder="Share a link ..." /></a></p>
+        </div>
+
+        <div class="sharebox" id="big-share" style="display: none;">
+        <h3>Share a Link</h3>
+        <form action="/share/create/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="modebutton" value="Submit" />
+            <a class="modebutton" href="javascript:void(0)" onclick="javascript:$('#big-share').hide();$('#small-share').show();">Cancel</a>
+        </form>
+        <p><em>(If you want to write a post, leave the URL field blank.)</em></p>
+        </div>
         {% for event in events %}
         	{% event_bubble event 1 %}
         {% endfor %}
+        </div>
+
+        <div id="right">
+        <h3>Top projects</h3>
+        {% if projects %}
+        <ul>
+        {% for proj in projects %}
+        	<li><a href="{% url dashboard.views.projects.show proj.url_path %}">
+					{{ proj.title }}
+				</a></li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        </div>
     {% else %}
         <div class="extra-content">
             <h3>No events yet.</h3>
         </div>
     {% endif %}
+    <div class="clear"></div>
 {% endblock %}

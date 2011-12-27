@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="sharebox">
+        <h3>Share a Link</h3>
+        <form action="/share/create/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="modebutton" value="Submit" />
+            <a class="modebutton" href="/">Cancel</a>
+        </form>
+        <p><em>(If you want to write a post, leave the URL field blank.)</em></p>
+        </div>
+{% endblock %}

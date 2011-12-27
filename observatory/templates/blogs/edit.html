@@ -10,12 +10,12 @@
         <form action="{% url dashboard.views.blogs.create_post project.id %}"
               method="post">
     {% endif %}
-    
+
     {% csrf_token %}
     {{ form }}
-    
+
     <div class="submitbutton">
-        <input type="submit" class="green button" value="Save Post" />
+        <input type="submit" class="modebutton" value="Save Post" />
     </div>
     </form>
 {% endblock %}

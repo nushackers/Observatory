@@ -73,7 +73,7 @@
             </div>
 
             <div class="submitbutton">
-                <input type="submit" class="green button" value="Save Changes" />
+                <input type="submit" class="modebutton" value="Save Changes" />
             </div>
         </form>
     </div>
@@ -94,10 +94,10 @@
                 {{ blog_form.as_p }}
                 <div class="submitbutton">
                     {% if project.blog.from_feed %}
-                        <input type="submit" class="green button"
+                        <input type="submit" class="modebutton"
                                value="Save Changes" />
                     {% else %}
-                        <input type="submit" class="green button"
+                        <input type="submit" class="modebutton"
                                value="Switch to a Feed" />
                     {% endif %}
                 </div>
@@ -116,11 +116,11 @@
                     {% if not post.from_feed %}
                         <li>
                             <div>{{ post.title }}</div>
-                            <a class="green button-small"
+                            <a class="positive"
                                href="{% url dashboard.views.blogs.delete_post post.project.url_path post.url_path %}">
                                 Delete
                             </a>
-                            <a class="green button-small"
+                            <a class="positive"
                                href="{% url dashboard.views.blogs.edit_post post.project.url_path post.url_path %}">
                                 Modify
                             </a>
@@ -136,14 +136,14 @@
                 {% csrf_token %}
                 <input type="hidden" name="switch-to-hosted" value="yes" />
                 <div class="submitbutton">
-                    <input type="submit" class="green button"
+                    <input type="submit" class="modebutton"
                            value="Switch to Hosted" />
                 </div>
             </form>
             {% else %}
             <div style="margin: 0px auto">
                 <a href="{% url dashboard.views.blogs.write_post project.id %}"
-					class="green button" style="text-align:center"
+					class="modebutton" style="text-align:center"
 					id="write-post-button">
                     Write a Post
                 </a>
@@ -170,16 +170,16 @@
                 {{ cloned_repo_form.as_p }}
                 <div class="submitbutton">
                     {% if not repo.from_feed %}
-                        <input type="submit" class="green button"
+                        <input type="submit" class="modebutton"
                                value="Save Changes" />
                     {% else %}
-                        <input type="submit" class="green button"
+                        <input type="submit" class="modebutton"
                                value="Switch to Cloned" />
                     {% endif %}
                 </div>
             </form>
         </div>
-		
+
         <div class="form-col-right">
             <h2>Feed Repository Settings</h2>
             <p>
@@ -194,10 +194,10 @@
                 {{ feed_repo_form.as_p }}
                 <div class="submitbutton">
                     {% if repo.from_feed %}
-                        <input type="submit" class="green button"
+                        <input type="submit" class="modebutton"
                                value="Save Changes" />
                     {% else %}
-                        <input type="submit" class="green button"
+                        <input type="submit" class="modebutton"
                                value="Switch to a Feed" />
                     {% endif %}
                 </div>
@@ -221,7 +221,7 @@
 					<img src="{{ screenshot.thumb_url }}" alt="{{ project.title }}" />
 					<div class="screenshot-info">
 						<h3>{{ screenshot.title }}</h3>
-						<a class="green button-small" href="{% url dashboard.views.projects.delete_screenshot project.url_path screenshot.id %}">
+						<a class="positive" href="{% url dashboard.views.projects.delete_screenshot project.url_path screenshot.id %}">
 								Delete
 						</a>
 					</div>

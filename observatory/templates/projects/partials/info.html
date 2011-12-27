@@ -2,12 +2,12 @@
     {% if user in project.authors.all or user.is_staff %}
         <li>
             <a href="{% url dashboard.views.projects.modify project.url_path %}">
-                Modify
+                Edit
             </a>
         </li>
     {% endif %}
     <li><a href="{{ project.website }}">Website</a></li>
-	<li><a href="{{ project.blog.link_to }}">
+	<li><a href="{% url dashboard.views.blogs.show_blog project.url_path %}">
         Blog
     </a></li>
 	<li><a href="{{ project.repository.web_url }}">Repository</a></li>

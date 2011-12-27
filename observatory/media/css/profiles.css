@@ -2,11 +2,12 @@
 #profile-left {
   float: left;
   width: 525px;
+  min-height: 250px;
 }
 
 #profile-gravatar {
   float: right;
-  
+
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;

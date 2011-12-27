@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block extratitle %} • Notifications{% endblock %}
+
+{% block extracontent %}
+<h2>Notifications</h2>
+
+    {% autoescape off %}
+    <div id="posts-list">
+    {% if unread_ls %}<h3>Unread</h3>{% else %} No Unread Notifications{% endif %}
+      {% for notify in unread_ls %}
+        <div class="notification">
+                <a href="{% url dashboard.views.users.profile notify.author.id %}">{{ notify.author.get_full_name }}</a> responded to your <span class="notify-action">{{ notify.notification_type }}</span> at <a class="commentlink" href="{% if notify.content_object.type_name == "Commit" %}{% url dashboard.views.commits.show notify.content_object.project.url_path notify.content_object.url_path %}{% endif %}{% if notify.content_object.type_name == "Post" %}{% if notify.content_object.from_feed %}{% url dashboard.views.shares.show_post notify.content_object.id %}{% else %}{% url dashboard.views.blogs.show_user_post notify.content_object.url_path %}{% endif %}{% endif %}{% if notify.content_object.type_name == "Share" %}{% url dashboard.views.shares.show_link notify.content_object.id %}{% endif %}#comments">{{ notify.content_object.title }}</a>
+            </div>
+          {% empty %}
+
+          {% endfor %}
+      {% if read_ls %}
+      <h3>Read</h3>
+        {% for notify in read_ls.object_list %}
+            <div class="notification read">
+                <a href="{% url dashboard.views.users.profile notify.author.id %}">{{ notify.author.get_full_name }}</a> responded to your <span class="notify-action">{{ notify.notification_type }}</span> at <a class="commentlink" href="{% if notify.content_object.type_name == "Commit" %}{% url dashboard.views.commits.show notify.content_object.project.url_path notify.content_object.url_path %}{% endif %}{% if notify.content_object.type_name == "Post" %}{% if notify.content_object.from_feed %}{% url dashboard.views.shares.show_post notify.content_object.id %}{% else %}{% url dashboard.views.blogs.show_user_post notify.content_object.url_path %}{% endif %}{% endif %}{% if notify.content_object.type_name == "Share" %}{% url dashboard.views.shares.show_link notify.content_object.id %}{% endif %}#comments">{{ notify.content_object.title }}</a>
+            </div>
+        {% empty %}
+            <div id="content">
+                No notifications found.
+            </div>
+        {% endfor %}
+      {% endif %}
+
+        {% endautoescape %}
+
+    </div>
+
+    <div class="pagination-buttons">
+        {% if read_ls.has_previous %}
+            <a style="float: left;"
+               href="{% url dashboard.views.notifications.view_notify_page read_ls.previous_page_number %}">
+                Previous
+            </a>
+        {% endif %}
+
+        {% if read_ls.has_next %}
+            <a style="float: right;"
+               href="{% url dashboard.views.notifications.view_notify_page read_ls.next_page_number %}">
+                Next
+            </a>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+{% endblock %}

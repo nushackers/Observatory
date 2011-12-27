@@ -7,12 +7,12 @@
 We have {{ people|length }} {{ adjective }} past developer{{ people|length|pluralize}}.
 <ul class='project-info'>
             <a href="{% url dashboard.views.users.people %}"
-               class="green button-small">
+               class="modebutton">
                 Current Developers
             </a>
 </ul>
 </h2>
-<ul class="project-authors dark">
+<ul class="project-authors light">
 {% for person in people %}
 <li>
 <a href="{% url dashboard.views.users.profile person.id %}">
@@ -29,7 +29,7 @@ alt="{{ author.get_full_name }}" />
 There are no past developers.
 <ul class='project-info'>
             <a href="{% url dashboard.views.users.people %}"
-               class="green button-small">
+               class="modebutton">
                 Current Developers
             </a>
 </ul>

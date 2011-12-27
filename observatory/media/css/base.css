@@ -1,14 +1,15 @@
 /* Navigation bar */
 #top {
-    padding: 0px 20px;
+    padding: 0px;
     position: relative;
     height: 80px;
+    border-bottom: 1px solid #333;
 }
 
 #top h1 {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    left: 0px;
+    top: 18px;
     padding: 0px;
     margin: 0px;
     font-size: 30px;
@@ -16,15 +17,16 @@
 
 #top h1, #navigation-main {
     line-height: 40px;
+    letter-spacing: -1px;
 }
 
 #top a, .navigation-bullet {
-    font-family: "Kreon", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    color: #ddd;
-    -moz-text-shadow: 0px 0px 5px #000;
-    -webkit-text-shadow: 0px 0px 5px #000;
-    text-shadow: 0px 0px 5px #000;
+    font-family: "Helvetica Neue",Helvetica,Arial,default;
+    font-weight: bold;
+    color: #333;
+    -moz-text-shadow: 0px 0px 5px #eee;
+    -webkit-text-shadow: 0px 0px 5px #eee;
+    text-shadow: 0px 0px 5px #eee;
 }
 
 #top a {
@@ -32,10 +34,7 @@
 }
 
 #top a:hover {
-    color: #fff;
-    -moz-text-shadow: 0px 0px 5px #000;
-    -webkit-text-shadow: 0px 0px 5px #000;
-    text-shadow: 0px 0px 5px #000;
+    color: #19558D;
 }
 
 #top li {
@@ -52,17 +51,22 @@
 }
 
 #navigation-main {
-    font-size: 20px;
+    font-size: 17px;
+    letter-spacing: -1px;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 0px;
+}
+
+#navigation-main a {
+    font-weight: bold;
 }
 
 #navigation-account {
-    font-size: 10px;
+    font-size: 11px;
     position: absolute;
-    top: 58px;
-    right: 20px;
+    top: 50px;
+    right: 0px;
 }
 
 .navigation-bullet {
@@ -74,61 +78,179 @@
 #content, .extra-content {
     background-color: #fff;
     clear: both;
-    padding: 20px;
-    
-    margin-bottom: 20px;
-    
+    padding: 5px 0 20px 0;
+    width: 790px;
+    line-height: 1.4em;
     position: relative;
-
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    
-    -moz-box-shadow: 0px 0px 20px #111;
-    -webkit-box-shadow: 0px 0px 20px #111;
-    box-shadow: 0px 0px 20px #111;
 }
 
+.feed-content {
+    background-color: #fff;
+    clear: both;
+    padding: 5px 0 20px 0;
+    width: 500px;
+    line-height: 1.4em;
+    position: relative;
+}
+
+.feed-item, {
+    width: 485px;
+    min-height: 40px;
+}
+
+.notification {
+    width: 500px;
+    min-height: 35px;
+    padding: 0 5px 10px 0;
+    font-size: 105%;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+#posts-list {width: 500px;}
+#posts-list h3 {border-bottom: 1px solid #ccc;}
+
+.notify-action { font-weight: bold;background: #FFF6A9;}
+
+.read {
+    color: #777;
+    background: #f6f6f6;
+}
+.read a {color: #666 !important;}
+
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Kreon", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,default;
     font-weight: bold;
 }
 
-#content h2, .extra-content h2 {
+#content h2, .extra-content h2, .feed-content h2 {
     padding: 0px;
     margin: 0px 0px 10px 0px;
     line-height: 30px;
 }
 
-#content h3, .extra-content h3 {
+#content h3, .extra-content h3, .feed-content h3 {
     padding: 0px;
-    margin: 0px 0px 10px 0px;
+    margin:  10px 0 3px 0;
     line-height: 20px;
+    font-size: 105%;
 }
 
-#content h2 a, .extra-content h2 a, #content h3 a, .extra-content h3 a {
-   color: inherit;
-   text-decoration: none;
+#content h2 a, .extra-content h2 a, #content h3 a, .extra-content h3 a, .feed-content h2 a {
+    color: #19558D;
+    text-decoration: none;
 }
 
 #content h2 a:hover, .extra-content h2 a:hover,
-#content h3 a:hover, .extra-content h3 a:hover {
-   color: black;
+#content h3 a:hover, .extra-content h3 a:hover, .feed-content h3 a:hover {
+    text-decoration: underline;
+}
+
+#footer {
+    border-top: 1px solid #555;
+    margin: 30px 0 30px;
+    padding: 5px 0 10px;
+    clear: both;
+    display: block;
+}
+
+.footer-left {
+    float: left;
+}
+
+.footer-right {
+    float: right;
+}
+
+#comments {
+    border-top: 1px solid #aaa;
+    margin-top: 25px;
+    padding-top: 10px;
+}
+
+#comments ul {
+    border-left: 3px solid #eee;
+    border-bottom: 3px solid #eee;
+
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#comments li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+#comments p {
+    font-size: 110%;
+}
+
+#left {
+    width: 500px;
+    float: left;
+}
+
+#right {
+    width: 220px;
+    float: right;
+}
+
+#right h2, #right h3 {
+    border-bottom: 1px solid #999;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+}
+
+#right li {
+    list-style: none;
+    margin: 0 0 5px -40px;
+}
+
+.sharebox {
+    margin: 20px 0 20px;
+    padding: 10px 20px 0px 10px;
+    background-color: #ecf2f8;
+    border: 3px solid #cbdcec;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.sharebox input[type=text] {
+    height: 20px;
+    font-weight: normal;
+    font-size: 90%;
+}
+
+.sharebox label { font-size: 90%;}
+
+p.url {
+    /* url links */
+    color: #999;
+    font-style: italic;
+}
+
+.comment-replylink {
+    color: #999;
+    font-size: 80%;
+    position: relative;
+    top: -15px;
+    margin-bottom: -15px;
 }
 
 /* errors */
 #error-header {
-  background: url('/site-media/pixels/bad-news-bears.gif') repeat-x;
-  background-color: rgb(123, 21, 21);
-  margin: -20px -20px 0px -20px;
-  border-bottom: 1px solid white;
-  
-  -webkit-border-top-left-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+    background: url('/site-media/pixels/bad-news-bears.gif') repeat-x;
+    background-color: rgb(123, 21, 21);
+    margin: -20px -20px 0px -20px;
+    border-bottom: 1px solid white;
+
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 #error-header h2 {

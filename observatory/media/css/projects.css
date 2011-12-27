@@ -1,6 +1,6 @@
 /* project buttons */
 .project-info {
-    font-family: "Kreon", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,default;
     margin: 0px;
     font-size: 14px;
     float: right;
@@ -15,12 +15,12 @@
 }
 
 .project-info a {
-  color: inherit;
+  color: #19558D;
   text-decoration: none;
 }
 
 .project-info a:hover {
-  color: black;
+  text-decoration: underline;
 }
 
 /* project listing */
@@ -28,22 +28,31 @@
   clear: both;
 }
 
+.project-container {
+    padding: 10px;
+    border-top: 1px solid #aaa;
+    background: #f6f6f6;
+}
+
 .project-score {
   color: white;
-  
-  margin: -30px 0px 0px -30px;
-  float: left;
+
+  position: relative;
+  top: 30px;
+  left: -40px;
+  z-index: -1;
+
   width: 30px;
   height: 30px;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   line-height: 30px;
-  
+
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
-  
+
   -moz-box-shadow: 0px 0px 3px #222;
   -webkit-box-shadow: 0px 0px 3px #222;
   box-shadow: 0px 0px 3px #222;
@@ -74,17 +83,17 @@
     box-shadow: 0px 0px 20px #000 !important;
     padding-left: 20px;
     padding-right: 20px;
-}	
+}
 
 .project-authors, #project-no-authors, #screenshots {
     padding: 15px 5px 5px 20px !important;
     margin: 0px -20px 0px -20px !important;
     clear: both;
-}  
+}
 
 .project-authors, #screenshots {
   list-style: none;
-  color: #aaa;
+  color: #666;
 }
 
 div.header {
@@ -99,7 +108,7 @@ div.header h2 {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    
+
     -moz-box-shadow: 0px 0px 5px #111;
     -webkit-box-shadow: 0px 0px 5px #111;
     box-shadow: 0px 0px 5px #111;
@@ -142,13 +151,25 @@ div.header h2 {
     float: right;
     padding: 5px 0px;
     font-weight: bold;
-    text-shadow: 0px 1px 0px #444;
     font-size: larger;
 }
 
 #project-description {
-  clear: both;
-  padding: 10px 0px 30px 0px;
+    clear: both;
+    padding: 10px 10px 0px;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#project-description p {
+    margin-bottom: 10px;
 }
 
 .project-gravatar {
@@ -171,7 +192,7 @@ div.header h2 {
 
 #project-recent-activity-right .light-bar {
     border-left: 1px solid #ddd;
-    
+
     -webkit-border-top-left-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
     -moz-border-radius-topleft: 3px;
@@ -186,6 +207,7 @@ div.header h2 {
 
 #project-recent-activity-right {
     float: right;
+    margin-bottom: 20px;
 }
 
 #project-recent-activity h2 {
@@ -258,19 +280,19 @@ div.header h2 {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	
+
 	-moz-box-shadow: 0px 0px 20px black;
 	-webkit-box-shadow: 0px 0px 20px black;
 	box-shadow: 0px 0px 20px black;
-	
+
 	background: white;
 }
 
 /* project updated "progress" bars */
 #project-bars {
-  margin: 0px -20px -20px -20px;
-  padding: 20px 0px 10px 20px;
-  
+  margin: 0px 0px -20px 0px;
+  padding: 20px 20px 10px 20px;
+
   -webkit-border-bottom-right-radius: 3px;
   -webkit-border-bottom-left-radius: 3px;
   -moz-border-radius-bottomright: 3px;
@@ -282,7 +304,7 @@ div.header h2 {
 .projects-bar-container {
   position: relative;
   height: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .projects-bar-outline {
@@ -290,7 +312,7 @@ div.header h2 {
   position: absolute;
   left: 0px;
   top: 0px;
-  
+
   border: 1px solid #777;
   background: #444;
   background-image: -webkit-gradient(linear, left bottom, left top,
@@ -299,11 +321,11 @@ div.header h2 {
   background-image: -moz-linear-gradient(100% 100% 90deg,
                                          #444 0%,
                                          #333 100%);
-  
+
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
-  
+
   -moz-box-shadow: 0px 0px 20px #000;
   -webkit-box-shadow: 0px 0px 20px #000;
   box-shadow: 0px 0px 20px #000;
@@ -311,7 +333,6 @@ div.header h2 {
 
 .projects-bar {
   height: 24px;
-  background: #000;
   display: none;
   margin: 2px;
   -webkit-border-radius: 13px;
@@ -323,7 +344,7 @@ div.header h2 {
 
 .projects-bar-text {
   width: 320px;
-  color: white;
+  color: #333;
   font-weight: bold;
   font-size: 14px;
   height: 30px;
@@ -331,8 +352,8 @@ div.header h2 {
   position: absolute;
   left: 450px;
   top: 0px;
-  
-  -moz-text-shadow: 0px 0px 5px #000;
-  -webkit-text-shadow: 0px 0px 5px #000;
-  text-shadow: 0px 0px 5px #000;
+
+  -moz-text-shadow: 0px 0px 5px #fff;
+  -webkit-text-shadow: 0px 0px 5px #fff;
+  text-shadow: 0px 0px 5px #fff;
 }

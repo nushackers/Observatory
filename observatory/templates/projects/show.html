@@ -9,13 +9,13 @@
 
 {% block content %}
 <div class="top-bar">
-    <h2 style='float:left'>{{ project.title }}</h2>
+    <h2>{{ project.title }}</h2>
 
     {% include "projects/partials/info.html" %}
 </div>
 <div class="clear"></div>
 
-<div class="dark">
+<div class="green-bar">
     <div id="project-clone">
         {{ project.repository.clone_cmd }}
     </div>
@@ -68,14 +68,78 @@
     {{ project.description|linebreaks }}
 </div>
 
-<div class="dark">
+<div id="project-recent-activity">
+    <div id="project-recent-activity-left">
+        {% if blogposts %}
+            <div class="project-recent-header">
+                <h2>Recent Posts</h2>
+                {% if user in project.authors.all %}
+                {% if not project.blog.url %}
+                <a style="right: 55px" href="{% url dashboard.views.blogs.write_post project.id %}"
+                class="modebutton small">
+                Write post
+                </a>
+                {% endif %}{% endif %}
+                <a href="{% url dashboard.views.blogs.show_blog project.url_path %}" class="modebutton small">
+                    See All
+                </a>
+            </div>
+            {% for post in blogposts %}
+                <h3>
+                    <a href="{% url dashboard.views.blogs.show_post project.url_path post.url_path %}">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <p>
+                    {% autoescape off %}
+                        {{ post.summary }}
+                    {% endautoescape %}
+                </p>
+            {% endfor %}
+        {% else %}
+            <div class="project-recent-header">
+            <h2>No recent posts.</h2>
+            <a href="{% url dashboard.views.blogs.write_post project.id %}" class="modebutton small">
+                Write post
+            </a>
+            </div>
+        {% endif %}
+    </div>
+    <div id="project-recent-activity-right">
+        {% if commits %}
+            <div class="project-recent-header">
+                <h2>Recent Commits</h2>
+                <a href="{% url dashboard.views.commits.show_repository project.url_path %}" class="modebutton small">
+                    See All
+                </a>
+            </div>
+            {% for commit in commits %}
+                <h3>
+                    <a href="{% url dashboard.views.commits.show project.url_path commit.url_path %}">
+                        {{ commit.title }}
+                    </a>
+                </h3>
+                <p>
+                    {% autoescape off %}
+                        {{ commit.summary }}
+                    {% endautoescape %}
+                </p>
+            {% endfor %}
+        {% else %}
+            <h2>No recent commits.</h2>
+        {% endif %}
+    </div>
+</div>
+<div style="clear:both"></div>
+
+<div class="lighter">
 {% if authors %}
     <div class="header">
         <h2>Authors</h2>
         {% include "projects/partials/author_add_remove.html" %}
     </div>
-    
-    <ul class="project-authors dark">
+
+    <ul class="project-authors">
         {% for author in authors %}
             <li>
                 <a href="{% url dashboard.views.users.profile author.id %}">
@@ -96,7 +160,7 @@
                       method="post">
                     {% csrf_token %}
                     <input type="submit" value="I work on this!"
-                           class="green button" />
+                           class="modebutton" />
                     <input type="hidden" value="{{ project.id }}"
                           name="project_id" />
                     <input type="hidden" value="{{ user.id }}"
@@ -110,7 +174,7 @@
 
 {% if contributors %}
     <hr />
-    
+
     <div class="header">
         <h2>Contributors</h2>
     </div>
@@ -134,56 +198,4 @@
     </ul>
 {% endif %}
 </div>
-    
-<div id="project-recent-activity">
-    <div id="project-recent-activity-left">
-        {% if blogposts %}
-            <div class="project-recent-header">
-                <h2>Recent Posts</h2>
-                <a href="{% url dashboard.views.blogs.show_blog project.url_path %}" class="green button">
-                    See All
-                </a>
-            </div>
-            {% for post in blogposts %}
-                <h3>
-                    <a href="{% url dashboard.views.blogs.show_post project.url_path post.url_path %}">
-                        {{ post.title }}
-                    </a>
-                </h3>
-                <p>
-                    {% autoescape off %}
-                        {{ post.summary }}
-                    {% endautoescape %}
-                </p>
-            {% endfor %}
-        {% else %}
-            <h2>No recent posts.</h2>
-        {% endif %}
-    </div>
-    <div id="project-recent-activity-right">
-        {% if commits %}
-            <div class="project-recent-header">
-                <h2>Recent Commits</h2>
-                <a href="{% url dashboard.views.commits.show_repository project.url_path %}" class="green button">
-                    See All
-                </a>
-            </div>
-            {% for commit in commits %}
-                <h3>
-                    <a href="{% url dashboard.views.commits.show project.url_path commit.url_path %}">
-                        {{ commit.title }}
-                    </a>
-                </h3>
-                <p>
-                    {% autoescape off %}
-                        {{ commit.summary }}
-                    {% endautoescape %}
-                </p>
-            {% endfor %}
-        {% else %}
-            <h2>No recent commits.</h2>
-        {% endif %}
-    </div>
-</div>
-<div style="clear:both"></div>
 {% endblock %}

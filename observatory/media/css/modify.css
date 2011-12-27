@@ -1,10 +1,10 @@
 /* tabs for the modify project page */
 .four-tab {
     padding: 0px;
-    margin: -20px -20px 20px -20px;
+    margin: -5px 0px 20px 0px;
     height: 40px;
 
-    color: gray;
+    color: #fff;
 
     -moz-text-shadow: 0px 1px 1px #555;
     -webkit-text-shadow: 0px 1px 1px #555;
@@ -39,7 +39,7 @@
 
 .four-tab li.active {
     background: #fff;
-    
+
     color: #444;
 
     -moz-text-shadow: 0px 1px 1px #eee;
@@ -50,6 +50,7 @@
 .four-tab a {
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
 
 .four-tab a:hover {
@@ -103,13 +104,13 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	
+
 	width: 100%;
 	height: 100%;
-	
+
 	background: #000;
 	opacity: 0;
-	
+
 	display: none;
 }
 
@@ -118,7 +119,7 @@
 	padding: 0px 95px;
 	display: none;
 	opacity: 0;
-	
+
 	position: absolute;
 	top: -200px;
 	color: #eee;
@@ -163,27 +164,27 @@
 	-moz-box-shadow: 0px 0px 40px black;
 	-webkit-box-shadow: 0px 0px 40px black;
 	box-shadow: 0px 0px 40px black;
-	
+
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	
+
 	background: #111;
 	display: block;
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
-	
+
 	padding: 10px;
 	margin: 0px;
-	
+
 	color: #fff;
 	border: 1px solid #444;
-	
+
 	text-shadow: 0px -1px 0px black;
 	-moz-text-shadow: 0px -1px 0px black;
 	=webkit-text-shadow: 0px -1px 0px black;
-	
+
 	background-image: -webkit-gradient(linear, left bottom, left top,
 	                                   from(#111),
 	                                   to(#222));

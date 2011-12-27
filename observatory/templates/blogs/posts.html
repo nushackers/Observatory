@@ -9,7 +9,7 @@
     <div id="posts-list">
         {% if page.object_list %}
         {% for post in page.object_list %}
-        	{% event_bubble post 0 1 "post" %}       
+        	{% event_bubble post 0 1 "post" %}
         {% endfor %}
         {% else %}
             <div id="content">
@@ -20,14 +20,14 @@
     {% endautoescape %}
     <div class="pagination-buttons">
         {% if page.has_previous %}
-            <a class="pagination-previous button"
+            <a class="button-small green prevpage"
                href="{% url dashboard.views.blogs.posts_page page.previous_page_number %}">
                 Previous Page
             </a>
         {% endif %}
-        
+
         {% if page.has_next %}
-            <a class="pagination-next button"
+            <a class="button-small green nextpage" style="float: right;"
                href="{% url dashboard.views.blogs.posts_page page.next_page_number %}">
                 Next Page
             </a>

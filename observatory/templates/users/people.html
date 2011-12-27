@@ -6,12 +6,12 @@
 We have {{ people|length }} {{ adjective }} current developer{{ people|length|pluralize}}.
 <ul class='project-info'>
             <a href="{% url dashboard.views.users.past_people %}"
-               class="green button-small">
+               class="modebutton">
                 Past Developers
             </a>
 </ul>
 </h2>
-<ul class="project-authors dark">
+<ul class="project-authors light">
 {% for person in people %}
 <li>
 <a href="{% url dashboard.views.users.profile person.id %}">

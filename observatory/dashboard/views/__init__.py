@@ -16,5 +16,8 @@ import author_requests
 import blogs
 import commits
 import feed
+import notifications
 import projects
+import shares
+import votes
 import users

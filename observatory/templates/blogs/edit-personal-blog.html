@@ -17,11 +17,10 @@
 	</div>
 	<div class="clear"></div>
 	<div class="submitbutton">
-		<input type="submit" class="green button" value="Save Personal Blog Settings" />
-	</div>
+		<input type="submit" class="modebutton" value="Save Personal Blog Settings" />
+
 </form>
 <br/>
-<div class="submitbutton">
-  <a href="{% url dashboard.views.blogs.remove_personal_blog user.id %}"><input type="submit" class="green button" value="Remove Personal Blog" /></a>
+  <a href="{% url dashboard.views.blogs.remove_personal_blog user.id %}"><input type="submit" class="modebutton" value="Remove Personal Blog" /></a>
 </div>
 {% endblock %}

@@ -14,7 +14,7 @@
 
 import os
 from colorsys import hsv_to_rgb
-from datetime import datetime
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -34,14 +34,14 @@ def list(request):
   scoreless = Project.objects.filter(score = None).exclude(active = False)
 
 
-  
+
   # fetch repositories and blogs in single queries
   repositories = Repository.objects.exclude(project = None)
   blogs = Blog.objects.exclude(project = None)
-  
+
   repository_dict = {}
   blogs_dict = {}
-  
+
   for repository in repositories:
     repository_dict[repository.id] = repository
   for blog in blogs:
@@ -53,23 +53,23 @@ def list(request):
   for project in projects:
     project.repository = repository_dict[project.repository_id]
     project.blog = blogs_dict[project.blog_id]
-  
+
   # find the number of updates for blog, repo and overall in the past week
   repo_count, blog_count, overall_count = 0, 0, 0
-  now = datetime.utcnow()
+  now = datetime.datetime.utcnow()
   for project in projects:
     repo_days = (now - project.repository.most_recent_date).days
     blog_days = (now - project.blog.most_recent_date).days
     if repo_days < 7: repo_count += 1
     if blog_days < 7: blog_count += 1
     if repo_days < 7 or blog_days < 7: overall_count += 1
-  
+
   # create CSS for the progress bars at the top
   def css(count):
     grad_top = hsv_to_rgb(0.3 * count / projects.count(), 0.9, 0.5)
     grad_bottom = hsv_to_rgb(0.3 * count / projects.count(), 0.9, 0.9)
     border = hsv_to_rgb(0.3 * count / projects.count(), 0.9, 0.7)
-    
+
     return """
       background:rgb({3},{4},{5});
       background-image: -webkit-gradient(linear, left bottom, left top,
@@ -92,14 +92,14 @@ def list(request):
         int(border[2] * 255),
         int(424 * (1.0 * count / projects.count()))
       )
-      
+
   if projects.count() is not 0:
     repo_bar_css = css(repo_count)
     blog_bar_css = css(blog_count)
     overall_bar_css = css(overall_count)
   else:
     repo_bar_css, blog_bar_css, overall_bar_css = None, None, None
-  
+
   return render_to_response('projects/list.html', {
       'projects': projects,
       'scoreless': scoreless,
@@ -118,14 +118,14 @@ def archived_list(request):
   scoreless = Project.objects.filter(score = None).exclude(active = True)
 
 
-  
+
   # fetch repositories and blogs in single queries
   repositories = Repository.objects.exclude(project = None)
   blogs = Blog.objects.exclude(project = None)
-  
+
   repository_dict = {}
   blogs_dict = {}
-  
+
   for repository in repositories:
     repository_dict[repository.id] = repository
   for blog in blogs:
@@ -137,18 +137,18 @@ def archived_list(request):
   for project in projects:
     project.repository = repository_dict[project.repository_id]
     project.blog = blogs_dict[project.blog_id]
-  
+
   # find the number of updates for blog, repo and overall in the past week
   repo_count, blog_count, overall_count = 0, 0, 0
-  now = datetime.utcnow()
+  now = datetime.datetime.utcnow()
   for project in projects:
     repo_days = (now - project.repository.most_recent_date).days
     blog_days = (now - project.blog.most_recent_date).days
     if repo_days < 7: repo_count += 1
     if blog_days < 7: blog_count += 1
     if repo_days < 7 or blog_days < 7: overall_count += 1
-  
-  
+
+
   return render_to_response('projects/archive_list.html', {
       'projects': projects,
       'scoreless': scoreless,
@@ -162,25 +162,25 @@ def show(request, project_url_path):
   # redirect if the url path is not in the correct format
   resp = force_url_paths('dashboard.views.projects.show', project_url_path)
   if resp: return resp
-  
+
   # get the project
   project = get_object_or_404(Project, url_path = project_url_path)
 
 
-  
+
   # create a paginated list of the screenshots of the project
   paginator = None
   screenshots = Screenshot.objects.filter(project = project)
   if screenshots.count > 0:
     paginator = ListPaginator(screenshots.order_by('id').reverse(), 3)
-  
+
   # get the most recent commits for the project
   commits = Commit.objects.filter(repository = project.repository)
   commits = commits.order_by('date').reverse()[:SHOW_COMMIT_COUNT]
-  
+
   # get the project's contributors
   contributors = Contributor.objects.filter(projects__id__exact = project.id)
-  
+
   # exclude the current authors from the project
   for user in project.authors.all():
     contributors = contributors.exclude(user = user)
@@ -193,7 +193,7 @@ def show(request, project_url_path):
       show_add_remove_author = False
     except:
       pass
-  
+
   # get the most recent blog posts for the project
   blogposts = BlogPost.objects.filter(blog = project.blog)
   blogposts = blogposts.order_by('date').reverse()[:SHOW_BLOGPOST_COUNT]
@@ -218,23 +218,23 @@ def add(request):
   cloned_repo_form = ClonedRepositoryForm()
   project_form = ProjectForm()
   blog_form = BlogForm()
-  
+
   form_keys = {
     1: ('title', 'description', 'website', 'wiki'),
     2: ('web_url', 'clone_url', 'vcs', 'repo_rss', 'cmd'),
     3: ('url', 'rss')
   }
-  
+
   if 'current' in request.POST:
     current = int(request.POST['current'])
   else:
     current = 0
-  
+
   if current == 1:
     project_form = ProjectForm(request.POST)
     if not project_form.is_valid():
       current -= 1
-  
+
   elif current == 2:
     if 'clone_url' in request.POST:
       cloned_repo_form = ClonedRepositoryForm(request.POST)
@@ -244,15 +244,15 @@ def add(request):
       feed_repo_form = FeedRepositoryForm(request.POST)
       if not feed_repo_form.is_valid():
         current -= 1
-  
+
   elif current == 3:
     blog_form = BlogForm(request.POST)
     if not ('url' not in request.POST or blog_form.is_valid()):
       current -= 1
-  
+
   # go to the next form
   current += 1
-  
+
   # if there are more parts to the form
   if current < 4:
     # remove the csrf token and current from a copy of the POST data
@@ -267,7 +267,7 @@ def add(request):
           post.pop(key)
         except:
           pass
-    
+
     return render_to_response('projects/add.html', {
         'parts': [1, 2, 3],
         'current': current,
@@ -278,7 +278,7 @@ def add(request):
         'blog_form': blog_form,
         'js_page_id': 'add_project'
       }, context_instance = RequestContext(request))
-  
+
   # otherwise, if the form is complete, create the project
   else:
     # validate and clean all forms
@@ -286,10 +286,10 @@ def add(request):
     cloned_repo_form = ClonedRepositoryForm(request.POST)
     feed_repo_form = FeedRepositoryForm(request.POST)
     blog_form = BlogForm(request.POST)
-    
+
     for form in [project_form, cloned_repo_form, feed_repo_form, blog_form]:
       form.is_valid()
-    
+
     # create the blog object
     if 'rss' in request.POST:
       blog = Blog(url = blog_form.cleaned_data['url'],
@@ -352,21 +352,21 @@ def modify(request, project_url_path, tab_id = 1):
   # redirect if the url path is not in the correct format
   resp = force_url_paths(modify, project_url_path)
   if resp: return resp
-  
+
   project = get_object_or_404(Project, url_path = project_url_path)
   screenshots = Screenshot.objects.filter(project = project)
-  
+
   # if someone tries to edit a project they shouldn't be able to
   if not (request.user in project.authors.all() or request.user.is_staff):
     return HttpResponseRedirect(reverse(show, args = (project.url_path,)))
-  
+
   # default forms
   project_form = ProjectForm(instance = project)
   cloned_repo_form = ClonedRepositoryForm(instance = project.repository)
   feed_repo_form = FeedRepositoryForm(instance = project.repository)
   blog_form = BlogForm(instance = project.blog)
   screenshot_form = UploadScreenshotForm()
-  
+
   # if changes should be saved or rejected
   if request.POST:
     # uploading a screenshot
@@ -385,7 +385,7 @@ def modify(request, project_url_path, tab_id = 1):
     # editing the project's information
     elif 'title' in request.POST:
       form = ProjectForm(request.POST)
-      
+
       # if the form is valid, save
       if form.is_valid():
         project.title = form.cleaned_data['title']
@@ -395,15 +395,15 @@ def modify(request, project_url_path, tab_id = 1):
         project.active = form.cleaned_data['active']
         project.save()
         project_form = ProjectForm(instance = project)
-      
+
       # otherwise, display the errors
       else:
         project_form = form
-    
+
     # editing a cloned repository
     elif 'clone_url' in request.POST:
       form = ClonedRepositoryForm(request.POST)
-      
+
       if form.is_valid():
         project.repository.web_url = form.cleaned_data['web_url']
         project.repository.clone_url = form.cleaned_data['clone_url']
@@ -413,11 +413,11 @@ def modify(request, project_url_path, tab_id = 1):
         cloned_repo_form = ClonedRepositoryForm(instance = project.repository)
       else:
         cloned_repo_form = form
-    
+
     # editing a feed repository
     elif 'repo_rss' in request.POST:
       form = FeedRepositoryForm(request.POST)
-      
+
       if form.is_valid():
         project.repository.repo_rss = form.cleaned_data['repo_rss']
         project.repository.cmd = form.cleaned_data['cmd']
@@ -427,11 +427,11 @@ def modify(request, project_url_path, tab_id = 1):
         feed_repo_form = FeedRepositoryForm(instance = project.repository)
       else:
         feed_repo_form = form
-    
+
     # editing a feed-based blog
     elif 'url' in request.POST:
       form = BlogForm(request.POST)
-      
+
       if form.is_valid():
         project.blog.url = form.cleaned_data['url']
         project.blog.rss = form.cleaned_data['rss']
@@ -440,12 +440,12 @@ def modify(request, project_url_path, tab_id = 1):
         blog_form = BlogForm(instance = project.blog)
       else:
         blog_form = form
-    
+
     # switching to hosted blog
     elif 'switch-to-hosted' in request.POST:
       project.blog.from_feed = False
       project.blog.save()
-      
+
   return render_to_response('projects/modify.html', {
     'project': project,
     'screenshots': screenshots,
@@ -460,33 +460,33 @@ def modify(request, project_url_path, tab_id = 1):
   }, context_instance = RequestContext(request))
 
 
-	
+
 
 # adds a user as an author of a project
 def add_user(request):
   # get the user and project
   user = get_object_or_404(User, id = int(request.POST["user_id"]))
   project = get_object_or_404(Project, id = int(request.POST["project_id"]))
-  
+
   # don't let people add other users
   if int(request.user.id) is not user.id:
     return HttpResponseRedirect(reverse(show, args = (project.url_path,)))
-  
+
   # find the current authors of the project
   authors = project.authors.all()
-  
+
   # if the user is not already an author of the project
   if user not in authors:
     # if there are no authors, allow the user to "claim" the project
     if len(authors) == 0:
       project.authors.add(user)
       project.save()
-  
+
     # otherwise, send a request to all of the current authors
     else:
       request = AuthorRequest(user_id = user.id, project_id = project.id)
       request.save()
-  
+
   # redirect back to the show page
   return HttpResponseRedirect(reverse(show, args = (project.url_path,)))
 
@@ -495,29 +495,29 @@ def remove_user(request):
   # get the user and project
   user = get_object_or_404(User, id = int(request.POST["user_id"]))
   project = get_object_or_404(Project, id = int(request.POST["project_id"]))
-  
+
   # don't let people delete other users
   if int(request.user.id) is not int(user.id):
     return HttpResponseRedirect(reverse(show, args = (project.url_path,)))
-  
+
   # removes the user from the project
   if user in project.authors.all():
     project.authors.remove(user)
-  
+
   # save
   project.save()
-  
+
   # redirect back to the show page
   return HttpResponseRedirect(reverse(show, args = (project.url_path,)))
 
 @login_required
 def delete_screenshot(request, project_url_path, screenshot_id):
   project = get_object_or_404(Project, url_path = project_url_path)
-  
+
   if request.user not in project.authors.all():
     return HttpResponseRedirect(reverse(show, args = (project.url_path,)))
-  
+
   screenshot = get_object_or_404(Screenshot, id = screenshot_id)
   screenshot.delete()
-  
+
   return HttpResponseRedirect(reverse(modify, args = (project.url_path, 4)))

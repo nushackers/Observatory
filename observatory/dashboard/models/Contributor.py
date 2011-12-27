@@ -24,25 +24,28 @@ from Project import Project
 class Contributor(models.Model):
   class Meta:
     app_label = 'dashboard'
-  
+
   # the project the person contributed to
   projects = models.ManyToManyField(Project)
-  
+
+  # karma for user
+  karma = models.IntegerField(default = 1)
+
   # the person's user model or name/email
   user = models.ForeignKey(User, blank = True, null = True)
   name = models.CharField(max_length = 200, blank = True, null = True)
   email = models.CharField(max_length = 200, blank = True, null = True)
-  
+
   def save(self, *args, **kwargs):
     # check field lengths
     if self.name is not None and len(self.name) > 200:
       self.title = self.title[0:197] + "..."
-    
+
     if self.email is not None and len(self.email) > 200:
       self.email = self.email[0:197] + "..."
-    
+
     super(Contributor, self).save(*args, **kwargs)
-  
+
   def __unicode__(self):
     if self.user:
       return self.user.get_full_name()
@@ -53,4 +56,4 @@ class Contributor(models.Model):
     if self.email and not self.name:
       return self.email
     return str(self.id)
-    
+

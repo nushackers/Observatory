@@ -52,6 +52,13 @@ class BlogPostForm(forms.ModelForm):
     model = BlogPost
     fields = ('title', 'markdown')
 
+class ShareForm(forms.ModelForm):
+  summary = forms.CharField(widget=forms.Textarea,label='Text (optional)', required=False)
+  external_link = forms.URLField(required=False,label='URL')
+  class Meta:
+    model = Share
+    fields = ('external_link', 'title', 'summary')
+
 class UploadScreenshotForm(forms.Form):
   title = forms.CharField(max_length = 32)
   description = forms.CharField(max_length = 100)

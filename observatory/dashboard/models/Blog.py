@@ -25,14 +25,14 @@ from EventSet import EventSet
 class Blog(EventSet):
   class Meta:
     app_label = 'dashboard'
-  
+
   # link to the blog, if it isn't hosted on dashboard
   url = models.URLField("Blog Web Address")
   rss = models.URLField("Blog Feed")
-  
+
   # the user associated with the blog, if it is a personal blog
   user = models.ForeignKey(User, blank = True, null = True)
-  
+
   # returns the address for the blog, which depends on whether or not it
   # is hosted internally or externally
   def link_to(self):
@@ -41,16 +41,16 @@ class Blog(EventSet):
     else:
       from dashboard.views import blogs
       return reverse(blogs.show_blog, args = (self.project.url_path,))
-  
+
   # fetches the posts from the rss feed
   def fetch(self):
     import BlogPost
-    
+
     # don't fetch internally hosted blogs
     if not self.from_feed: return
-    
+
     events = []
-    
+
     # parse and iterate the feed
     entries = feedparser.parse(self.rss).entries
     for post in entries:
@@ -58,21 +58,21 @@ class Blog(EventSet):
         date = dateutil.parser.parse(post.date).replace(tzinfo=None)
       except:
         date = datetime.datetime.utcnow()
-      
+
       # don't re-add old posts
       if self.most_recent_date >= date:
         continue
-      
+
       try:
         content = post.content[0].value
       except:
         content = post.description
-      
+
       try:
         author_name = post.author_detail["name"]
       except:
         author_name = None
-      
+
       # sanitize the post's content
       content = sanitize(content, [
         "h1", "h2", "h3", "h4", "h5", "h6",
@@ -82,7 +82,7 @@ class Blog(EventSet):
         "table", "tbody", "td", "th", "thead", "tfoot",
         "pre", "tt", "code"
       ])
-      
+
       # format a summary for the post
       summary = sanitize(content, [], strip_tags = [
         "h1", "h2", "h3", "h4", "h5", "h6",
@@ -90,11 +90,11 @@ class Blog(EventSet):
         "b", "i", "u", "strong", "em",
         "pre", "tt", "code"
       ])
-      
-      if len(summary) > 500:
-        summary = summary[0:500] + u"..."
+
+      if len(summary) > 250:
+        summary = summary[0:250] + u"..."
       summary = "<p>" + summary + "</p>"
-      
+
       events.append(self.add_event(BlogPost.BlogPost,
         title = post.title,
         summary = summary,
@@ -107,7 +107,7 @@ class Blog(EventSet):
           "blog_id": self.id
         }
       ))
-    
+
     # find the new most recent date
     dates = [event.date for event in events if event is not None]
     dates.append(self.most_recent_date)

@@ -2,7 +2,7 @@
 label {
     font-size: 15pt;
     display: block;
-    font-family: "Kreon", inherit;
+    font-family: "Helvetica Neue",Helvetica,Arial,default;
 }
 
 input, textarea, select {
@@ -11,12 +11,8 @@ input, textarea, select {
   font-size: 16pt;
   background: #eee;
   padding: 3px;
-  
+
   border: 1px solid #aaa;
-  
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
 }
 
 textarea {
@@ -45,7 +41,7 @@ input:focus, textarea:focus {
 input:required:valid, textarea:required:valid {
   background: #DFD;
   border: 1px solid #0A0;
-  
+
   background-image: -webkit-gradient(linear, left bottom, left top,
     from(#EFE),
     to(#CFC));
@@ -57,7 +53,7 @@ input:required:invalid, textarea:required:invalid, input:focus:invalid,
 textarea:focus:invalid {
   background: #FDD;
   border: 1px solid #A00;
-  
+
   background-image: -webkit-gradient(linear, left bottom, left top,
     from(#FEE),
     to(#FCC));
