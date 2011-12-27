@@ -2,6 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
+from django.contrib.auth.decorators import login_required
 
 from voting.models import Vote
 from dashboard.models import Contributor
