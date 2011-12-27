@@ -60,6 +60,10 @@ urlpatterns = patterns('',
     (r'^posts/$', blogs.posts),
     (r'^posts\.rss$', BlogPostsFeed()),
 
+    # notifications
+    (r'^notifications/$', notifications.view_notify),
+    (r'^notifications/page/(\d+)/$', notifications.view_notify_page),
+
     # shares
     (r'^share/create/$', shares.create_share),
     (r'^share/post/([^\.]*)/$', shares.show_post),

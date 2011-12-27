@@ -93,10 +93,29 @@
     position: relative;
 }
 
-.feed-item {
+.feed-item, {
     width: 485px;
     min-height: 35px;
 }
+
+.notification {
+    width: 500px;
+    min-height: 35px;
+    padding-bottom: 10px;
+    font-size: 105%;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+#posts-list {width: 500px;}
+#posts-list h3 {border-bottom: 1px solid #ccc;}
+
+.notify-action { font-weight: bold;background: #FFF6A9;}
+
+.read {
+    color: #777;
+    background: #f6f6f6;
+}
+.read a {color: #666 !important;}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Helvetica Neue",Helvetica,Arial,default;

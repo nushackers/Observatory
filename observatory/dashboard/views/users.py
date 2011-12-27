@@ -13,7 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 from dashboard.forms import LoginForm, RegistrationForm, ForgotPasswordForm
-from dashboard.models import Contributor, Event
+from dashboard.models import Contributor, Event, NotificationRead
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -28,6 +28,7 @@ from observatory.lib.recaptcha.client import captcha
 from django.core.mail import send_mail
 from django.contrib.auth import *
 import random
+import datetime
 from random import choice
 from settings import MAIL_SENDER
 
@@ -192,6 +193,11 @@ def create_user(request, form):
 
   # save the user
   user.save()
+
+  notify = NotificationRead(
+      user=user,
+      lasttime_read = datetime.datetime.utcnow())
+  notify.save()
 
   # search past events for the user's email
   for event in Event.objects.filter(author_email__iexact = user.email,

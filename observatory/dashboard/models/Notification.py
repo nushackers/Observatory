@@ -27,11 +27,13 @@ class Notification(models.Model):
   notification_type = models.CharField(max_length = 64)
 
   def __unicode__(self):
-    return u'Notification of type %s' % notification_type
+    return u'Notification of type %s' % self.notification_type
 
 class NotificationRead(models.Model):
   """Records when user last read notifications
   """
+  class Meta:
+    app_label = 'dashboard'
   user = models.ForeignKey(User)
   lasttime_read = models.DateTimeField()
 

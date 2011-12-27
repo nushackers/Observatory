@@ -53,7 +53,8 @@ def create_notification(sender, instance, created, **kwargs):
     except:
       user = None
 
-    if user:
+    if user and not user == instance.user:
+      print 'yay'
       parent_comment = instance.parent
       notify_type = "comment" if parent_comment else parent.type_name().lower()
       notify = Notification(
