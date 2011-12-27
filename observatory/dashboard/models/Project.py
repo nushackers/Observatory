@@ -20,7 +20,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from observatory.settings import GREEN_SCORE, RED_SCORE, UNCERTAIN_SCORE, UNHAPPY_SCORE
 from observatory.settings import MEDIA_URL, MAX_SCORE_MINUTES
-from observatory.dashboard.util import url_pathify_safe
+from dashboard.util import url_pathify_safe
 from Repository import Repository
 from Blog import Blog
 from URLPathedModel import URLPathedModel
