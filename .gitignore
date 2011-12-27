@@ -10,4 +10,5 @@ observatory/media/screenshots/
 observatory/media/style.css
 observatory/media/observatory.js
 observatory/clones/
+observatory/productionsettings.py
 !observatory/media/screenshots/thisdirectoryexists.txt

@@ -196,7 +196,8 @@ def create_user(request, form):
 
   notify = NotificationRead(
       user=user,
-      lasttime_read = datetime.datetime.utcnow())
+      lasttime_read = datetime.datetime.utcnow(),
+      unread=0)
   notify.save()
 
   # search past events for the user's email
