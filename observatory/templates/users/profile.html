@@ -12,9 +12,11 @@
 	<div class="green-bar">
 		<strong>Karma</strong>: {{ contributor.karma }}
 	</div>
+	{% if user.is_authenticated %}
 	<p style="margin-top: 15px">
 		{{ user_page.email }}
 	</p>
+	{% endif %}
 
 	{% if user_page.project_set.all %}
 	<h3>Projects</h3>
