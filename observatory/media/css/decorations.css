@@ -92,6 +92,12 @@
     color: #fff;
 }
 
+/* Author name in view pages */
+.singular-author {
+    color: #777;
+    margin: -10px 0 10px;
+}
+
 /* Voting arrows */
 .votecontainer { position: relative;}
 
@@ -108,6 +114,17 @@
 .points {
     color: #777;
 }
+
+/* Notification count */
+a.notify-count {
+    background: #19558D;
+    padding: 2px 5px;
+    color: #fff !important;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+a.notify-count:hover {background: #333;}
 
 /* Comments shame styles */
 .shame1, .shame1 a { color: #aaa !important;}

@@ -54,9 +54,9 @@ def create_notification(sender, instance, created, **kwargs):
       user = None
 
     if user and not user == instance.user:
-      print 'yay'
       parent_comment = instance.parent
       notify_type = "comment" if parent_comment else parent.type_name().lower()
+      read = NotificationRead.objects.get(user=user)
       notify = Notification(
             user = user,
             author = instance.user,
@@ -64,6 +64,8 @@ def create_notification(sender, instance, created, **kwargs):
             time = datetime.datetime.utcnow(),
             notification_type = notify_type)
       notify.save()
+      read.unread = read.unread + 1
+      read.save()
 
 models.signals.post_save.connect(denormalize_comments, sender=ThreadedComment)
 models.signals.post_delete.connect(denormalize_comments, sender=ThreadedComment)

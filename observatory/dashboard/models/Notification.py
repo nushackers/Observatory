@@ -5,9 +5,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-from BlogPost import BlogPost
-from Commit import Commit
-from Share import Share
 
 class Notification(models.Model):
   class Meta:
@@ -34,8 +31,10 @@ class NotificationRead(models.Model):
   """
   class Meta:
     app_label = 'dashboard'
+
   user = models.ForeignKey(User)
   lasttime_read = models.DateTimeField()
+  unread = models.PositiveIntegerField(default=0)
 
   def __unicode__(self):
     return u'Notification Last Read Object'

@@ -31,6 +31,7 @@ def view_notify(request):
 
   # save read time as now
   read.lasttime_read = datetime.datetime.utcnow()
+  read.unread = 0
   read.save()
   return render_to_response('partials/notifications.html', {
     'unread_ls': unread_ls,
@@ -40,7 +41,6 @@ def view_notify(request):
 
 @login_required
 def view_notify_page(request, page_num):
-  print 'yay'
   if page_num == 1:
     return HttpResponseRedirect(reverse(view_notify))
 

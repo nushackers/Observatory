@@ -95,13 +95,13 @@
 
 .feed-item, {
     width: 485px;
-    min-height: 35px;
+    min-height: 40px;
 }
 
 .notification {
     width: 500px;
     min-height: 35px;
-    padding-bottom: 10px;
+    padding: 0 5px 10px 0;
     font-size: 105%;
     border-bottom: 1px solid #ddd;
     margin-bottom: 15px;

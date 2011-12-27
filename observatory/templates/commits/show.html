@@ -14,7 +14,7 @@
 {% block content %}
 <h2 style="float:left">{{ commit.title }}</h2>
 <div class="clear"></div>
-
+{% if commit.author %}<div class="singular-author">{{ commit.author.get_full_name }}</div>{% endif %}
 {% autoescape off %}
     {{ commit.summary }}
 {% endautoescape %}

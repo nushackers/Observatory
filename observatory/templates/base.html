@@ -45,6 +45,8 @@
             </ul>
             <ul id="navigation-account">
                 {% if user.is_authenticated %}
+                <li><a href="/notifications" class="notify-count">{% notifications user.id %}</a> •
+                </li>
                 <li>
                     <a href="{% url dashboard.views.users.profile user.id%}">
                         {{ user.first_name }} {{ user.last_name }}
