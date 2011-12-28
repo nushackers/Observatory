@@ -16,7 +16,8 @@ input, textarea, select {
 }
 
 textarea {
-  font-size: 9pt;
+  height: 150px;
+  font-size: 13px;
 }
 
 .submitbutton {
