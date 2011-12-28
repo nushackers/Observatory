@@ -27,8 +27,12 @@ def show_link(request, id):
         'post': share
       }, context_instance = RequestContext(request))
 
-def redirect_link(request, id):
-  share = get_object_or_404(Share, id = id)
+def redirect_link(request, id, sharetype):
+  if sharetype == "link":
+    share = Share.objects.get(id=id)
+  else:
+    share = BlogPost.objects.get(id=id)
+
   if share.external_link:
     return HttpResponseRedirect(share.external_link)
   else:

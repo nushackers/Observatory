@@ -68,7 +68,7 @@ urlpatterns = patterns('',
     (r'^share/create/$', shares.create_share),
     (r'^share/post/([^\.]*)/$', shares.show_post),
     (r'^share/link/([^\.]*)/$', shares.show_link),
-    (r'^share/redirect/([^\.]*)/$', shares.redirect_link),
+    (r'^share/redirect/(?P<sharetype>link|post)/(?P<id>[^\.]*)/$', shares.redirect_link),
 
     # users
     (r'^register-or-login/$', users.login_or_reg),
