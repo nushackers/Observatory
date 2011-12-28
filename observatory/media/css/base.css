@@ -228,6 +228,7 @@ p.url {
     /* url links */
     color: #999;
     font-style: italic;
+    margin-bottom: 5px;
 }
 
 .comment-replylink {

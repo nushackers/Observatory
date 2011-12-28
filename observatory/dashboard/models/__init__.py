@@ -55,11 +55,16 @@ def create_notification(sender, instance, created, **kwargs):
 
     if user and not user == instance.user:
       parent_comment = instance.parent
-      notify_type = "comment" if parent_comment else parent.type_name().lower()
+      # If this is a comment alert the commenter instead
+      if parent_comment:
+        notify_type = "comment"
+        user = parent_comment.user
+      else:
+        notify_type = parent.type_name().lower()
       read = NotificationRead.objects.get(user=user)
       notify = Notification(
             user = user,
-            author = instance.user,
+            author = instance.user ,
             content_object = parent,
             time = datetime.datetime.utcnow(),
             notification_type = notify_type)

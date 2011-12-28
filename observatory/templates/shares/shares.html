@@ -9,7 +9,7 @@
 {% block content %}
 {% autoescape off %}
 
-    <a href="{% if event.type_name == "Post" %}{% url dashboard.views.blogs.show_user_post post.url_path %}{% else %}{% url dashboard.views.shares.redirect_link post.id %}{% endif %}"><h2 style="float:left">{{ post.title }}</h2></a>
+    <a href="{% if post.type_name == "Post" %}{% url dashboard.views.shares.redirect_link "post" post.id %}{% else %}{% url dashboard.views.shares.redirect_link "link" post.id %}{% endif %}"><h2 style="float:left">{{ post.title }}</h2></a>
     {% if post.type_name == "Share" %}
         {% if post.external_link %}
         <p class="url" style="float: right; margin-top: 10px;">({{ post.link_display }})</p>
