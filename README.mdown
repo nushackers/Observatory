@@ -32,19 +32,24 @@ framework. It also depends on the several packages and version control systems:
 * Git
 * Mercurial
 
+Added by Eli:
+
+* Python-Markdown
+* South
+
 For OS X/Linux users, everything but Git can be installed using pip.
 
-	pip install django mercurial BeautifulSoup pil
+	pip install django mercurial BeautifulSoup pil South markdown
 	sudo apt-get install git-core #Your native package manager here
-	
+
 If the above does not work for Linux users, the following can be used in place
 of pip to install PIL and Mercurial:
 
 	sudo apt-get install mercurial
 	sudo aptitude install python-imaging
-	
+
 For Windows users Git, Mercurial, and PIL are best installed through downloaded
-installers because there are several build issues when using python packaging. 
+installers because there are several build issues when using python packaging.
 You will also want to install `easy_install` or `pip` to to manage your python
 packages.
 
@@ -52,18 +57,18 @@ packages.
 	http://mercurial.selenic.com/wiki/Download#Windows
 	http://www.pythonware.com/products/pil/
 	http://pypi.python.org/pypi/setuptools
-	
+
 You will likely need to edit the `/c/Program Files/Git/etc/profile` file to put
 both python and setuptools on your PATH for the GitBash shell.
 
 	PATH=$PATH:/c/Python27:/c/Python27/Scripts
-	
+
 You can then boot up a new bash terminal and grab the pip, BeautifulSoup and
 Django packages
 
 	easy_install pip
 	pip install BeautifulSoup django
-	
+
 ## Fetching
 Since it deals primarily with external data sources, Observatory uses a set of
 scripts to pull data down and store it in the local database. There scripts are
@@ -96,14 +101,14 @@ in the "Setup" above, but skip the part about configuring a web server and
 database, since you can use the Django development server and SQLite.
 
 There are two scripts that are useful:
-(Scripts need to be run from the Observatory directory.) 
+(Scripts need to be run from the Observatory directory.)
 
-* `observatory/dashboard/demo.py` loads up a demo set of projects and users.
-* `observatory/dashboard/fetch.py` runs the repository and blog fetch scripts.
+* `observatory/dashboard/demo.py` loads up a demo set of projects and users. Note: (Eli): Couldn't get this to work.
+* `observatory/dashboard/fetch.py` runs the repository and blog fetch scripts - but not to be used in production.
 
 (Optional) If you don't want the demo set, you need to use syncdb manually:
 
-* `observatory/manage.py syncdb`  creates the necessary database tables.
+* `observatory/manage.py syncdb`  creates the necessary database tables. South will then ask you to run migrations, so just run the commands given to you.
 
 Once these have been run, the database will be populated with the most
 recent commits and blog posts for the demo projects. Then, you can just run the
@@ -120,17 +125,17 @@ me, via email or on `#rcos` on `irc.freenode.net`.
 ## Page Descriptions
 Projects
 
-The front page of Observatory, gives a quick list of all projects listed in 
-Observatory with links to each project page, blog, and repository. A status 
+The front page of Observatory, gives a quick list of all projects listed in
+Observatory with links to each project page, blog, and repository. A status
 icon is next to each project title in the form of a emoticon used to denote how
-recently the project has been updated. At the top of the page, a graph breaks 
-down the overall status of all projects by displaying how many projects, 
+recently the project has been updated. At the top of the page, a graph breaks
+down the overall status of all projects by displaying how many projects,
 repositories, and blogs have been updated within the past week.
 
 Feed
 
-An aggregate feed of all blog posts and commits to any project listed in 
-Observatory. Contains the information of the commit or an excerpt of the blog 
+An aggregate feed of all blog posts and commits to any project listed in
+Observatory. Contains the information of the commit or an excerpt of the blog
 post as well as who published it to which project.
 
 Posts
@@ -139,18 +144,18 @@ An aggregate feed of all full blog posts for the projects in Observatory.
 
 People
 
-A listing of all developers logged in the Obseratory system. Clicking on a 
+A listing of all developers logged in the Obseratory system. Clicking on a
 name will bring you to the user's page.
 
 User Page
 
-Contains contact email of the developer and a list of all projects started by 
-them under the project heading. Listed under Contributed to is all the 
-projects they committed changes to the project's repo. Only projects currently 
+Contains contact email of the developer and a list of all projects started by
+them under the project heading. Listed under Contributed to is all the
+projects they committed changes to the project's repo. Only projects currently
 in the Observatory system will be listed here.
 
 Project Page
 
-Provides a listing of all authors and contributors to the project. Only users 
-listed within the Observatory system will be added, not anyone who commits to 
+Provides a listing of all authors and contributors to the project. Only users
+listed within the Observatory system will be added, not anyone who commits to
 the repo. At the bottom there are also small feeds for commits and blog posts.
