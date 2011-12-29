@@ -68,7 +68,7 @@
 					{% if show_content %}
 						{{ event.content }}
 					{% else %}
-						{{ event.summary|truncatewords:40 }}
+						{{ event.summary|truncatewords_html:40 }}
 					{% endif %}
 				{% endautoescape %}
 			</div>

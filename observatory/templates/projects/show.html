@@ -92,7 +92,7 @@
                 </h3>
                 <p>
                     {% autoescape off %}
-                        {{ post.summary|truncatewords:40 }}
+                        {{ post.summary|truncatewords_html:40 }}
                     {% endautoescape %}
                 </p>
             {% endfor %}
