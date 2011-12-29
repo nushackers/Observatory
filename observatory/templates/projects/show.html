@@ -99,9 +99,11 @@
         {% else %}
             <div class="project-recent-header">
             <h2>No recent posts.</h2>
+            {% if user in project.authors.all %}
             <a href="{% url dashboard.views.blogs.write_post project.id %}" class="modebutton small">
                 Write post
             </a>
+            {% endif %}
             </div>
         {% endif %}
     </div>
