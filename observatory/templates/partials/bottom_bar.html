@@ -13,8 +13,8 @@
 
         {% if event.author %}
             <a href="{% url dashboard.views.users.profile event.author.id %}">
-                {{ event.author.get_full_name }} •
-            </a>
+                {{ event.author.get_full_name }}
+            </a> •
         {% else %}
             {% if event.author_name %}
                 {{ event.author_name }} •

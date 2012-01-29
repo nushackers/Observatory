@@ -115,7 +115,7 @@ div.header h2 {
 }
 
 .project-authors p {
-    padding: 0px;
+    padding: 0 0 10px;
     margin: 2px 0px 0px 0px;
 
     text-align: center;

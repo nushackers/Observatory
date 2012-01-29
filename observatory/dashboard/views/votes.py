@@ -60,7 +60,7 @@ def xmlhttprequest_vote_on_object(request, model, direction,
 
     try:
         userid = obj.user_id
-        contributor = Contributor.objects.get(id = userid)
+        contributor = Contributor.objects.get(user = userid)
         contributor.karma = contributor.karma + vote
         contributor.save()
     except: # needto: make this more specific

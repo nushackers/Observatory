@@ -1,6 +1,7 @@
 from dashboard.feeds import *
 from dashboard.models import *
 from dashboard.views import *
+from django.views.generic.simple import direct_to_template
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import User, Group
 from voting.views import xmlhttprequest_vote_on_object
@@ -117,6 +118,9 @@ urlpatterns = patterns('',
 
     (r'^projects/$', projects.list),
     (r'^$', feed.main), #home
+    (r'^about/$', direct_to_template, {'template': 'about.html'}),
+    (r'^guidelines/$', direct_to_template, {'template': 'guidelines.html'}),
+
 
     # votes
     url(r'^vote/comment/(?P<object_id>\d+)/(?P<direction>up|down|clear)vote/$',

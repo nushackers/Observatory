@@ -17,3 +17,4 @@ import gravatar
 import javascript
 import bottom_bar
 import event_bubble
+import html_urlize

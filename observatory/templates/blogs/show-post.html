@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load gravatar %}
+{% load html_urlize %}
 {% load markup %}
 {% load threadedcomments_tags %}
 {% load voting_tags %}
@@ -34,7 +35,7 @@
             {% endif %}
         </div>
         <div class="feed-item">
-            {{ post.content }}
+            {{ post.content|html_urlize }}
         </div>
 
         <div id="comments">
